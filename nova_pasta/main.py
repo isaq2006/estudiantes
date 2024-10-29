@@ -1,6 +1,8 @@
 from classes import *
 from os import system
 
+#angelica é bonitaaaaa
+
 print("--" * 32)
 print("Olá, Seja bem-vindo(a) ao nosso sistema de Organização de clubes!!!")
 print("--" * 32)
