@@ -1,7 +1,7 @@
 from classes import *
 from os import system
-
-#angelica é bonitaaaaa
+ 
+ #tentando de nnovo
 
 print("--" * 32)
 print("Olá, Seja bem-vindo(a) ao nosso sistema de Organização de clubes!!!")
