@@ -1,4 +1,4 @@
-from usuario import Usuario
+from users.usuario import Usuario
 
 class Coordenador(Usuario):
     def __init__(self, id="", senha="", nome="", email="", fone="", nivelAcesso="", interesses="", conhecimentoTecnico="", experiencia="",clubeCordenando=None):

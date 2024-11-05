@@ -1,4 +1,4 @@
-from usuario import Usuario
+from users.usuario import Usuario
 
 class Membro(Usuario):
     def __init__(self, id="", senha="", nome="", email="", fone="", nivelAcesso="", interesses="", habilidades="", clube=None):

@@ -3,7 +3,6 @@ from users.administrador import Administrador
 from users.usuario import Usuario
 from users.pessoa import Pessoa
 from users.cordenador import Coordenador
-from users.membro import Membro
 from atividade import Atividade
 from clube import Clube
 from arquivo import Arquivo
@@ -70,12 +69,52 @@ elif user.get_nivelAcesso == "área inicial":
     resposta = input()
     if resposta == "1":
       user.visualizarClubes(clubesSistema.values())
-      
+      break
     elif resposta == "2":
-      user_1 = user.aderirComunidade(bancoDeDados,clubesSistema.values())
+      user_1 = user.aderirComunidade(bancoDeDados)
+
+
+if user_1.get_nivelAcesso == "ilimitado no clube":
+  novo_clube = user_1.criar_clube()
+  clubesSistema[novo_clube.get_id()] = novo_clube
   
-    else:
-      print("Opção inválida")
+  print("clube criado com sucesso!!!")
+  while True:
+    print("Bem-vindo(a) ao menu principal, o que deseja fazer?")
+    print("[1] Excluir clube")
+    print("[2] Adicionar membro ao clube")
+    print("[3] Remover membro do clube")
+    print("[4] Criar atividade")
+    print("[5] Excluir atividade")
+    print("[6] Sair")
+
+    opcao = input("Digite a opção desejada: ")
+
+    if opcao == "1":
+      user.excluirClube()
+    elif opcao == "2":
+      user.adicionarMembro()
+    elif opcao == "3":
+      user.removerMembro()
+    elif opcao == "4":
+      user.criarAtividade()
+    elif opcao == "5":
+      user.excluirAtividade()
+    elif opcao == "6":
+      break
+        
+elif user_1.get_nivelAcesso == "limitado ao clube":
+  if not clubesSistema:
+      print("Nenhum clube encontrado")
+  else:
+      for i, clube in enumerate(clubesSistema.values(), 1):
+          print(f"{i}° clube : {clube.get_nome()}\nDescrição: {clube.get_descricao()}")
+      print("\nDigite a qual clube você deseja participar:")
+      escolha = int(input())
+      if 1 <= escolha <= len(clubesSistema.values()):
+          clube_escolhido = clubesSistema.values()[escolha - 1]
+      clube_escolhido.solicitar_entrada(user_1)
+      
 
 
 acao=False

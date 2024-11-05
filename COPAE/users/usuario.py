@@ -1,4 +1,4 @@
-from pessoa import Pessoa
+from users.pessoa import Pessoa
 
 class Usuario(Pessoa):
     def __init__(self, id="", senha="", nome="", email="", fone="", nivelAcesso="", hobbies=""):
@@ -35,7 +35,7 @@ class Usuario(Pessoa):
     def receber_mensagem(self, mensagem):
         print(mensagem.get_conteudo())
         
-    def aderirComunidade(self, bancoDeDados, clubes):
+    def aderirComunidade(self, bancoDeDados):
         print("voce deseja se inscrever ou criar um clube?")
         print("[1] Criar um clube")
         print("[2] Participar de um clube")
@@ -51,17 +51,8 @@ class Usuario(Pessoa):
             from membro import Membro
             membro = Membro()
             membro.set_cadastro(bancoDeDados)
-            if not clubes:
-                print("Nenhum clube encontrado")
-            else:
-                for i, clube in enumerate(clubes, 1):
-                    print(f"{i}° clube : {clube.get_nome()}\nDescrição: {clube.get_descricao()}")
-                print("\nDigite a qual clube você deseja participar:")
-                escolha = int(input())
-                if 1 <= escolha <= len(clubes):
-                    clube_escolhido = clubes[escolha - 1]
                     
-                    return membro
+            return membro 
         
     def visualizarClubes(self, clubes):
         for clube in clubes:
