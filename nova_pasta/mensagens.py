@@ -38,3 +38,5 @@ class Mensagem:
 
     def set_status_leitura(self, status_leitura: bool):
         self.__status_leitura = status_leitura
+
+#sei laaa
