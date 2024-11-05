@@ -45,7 +45,7 @@ class Usuario(Pessoa):
             cordenador = Coordenador()
             cordenador.set_cadastro(bancoDeDados)
             
-            return cordenador.criar_clube()
+            return cordenador
             
         elif opcao == "2":
             from membro import Membro
@@ -61,7 +61,7 @@ class Usuario(Pessoa):
                 if 1 <= escolha <= len(clubes):
                     clube_escolhido = clubes[escolha - 1]
                     
-                    return clube_escolhido.solicitar_entrada(membro)
+                    return membro
         
     def visualizarClubes(self, clubes):
         for clube in clubes:

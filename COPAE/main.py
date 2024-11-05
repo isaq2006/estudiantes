@@ -72,7 +72,7 @@ elif user.get_nivelAcesso == "área inicial":
       user.visualizarClubes(clubesSistema.values())
       
     elif resposta == "2":
-      user.aderirComunidade(bancoDeDados,clubesSistema.values())
+      user_1 = user.aderirComunidade(bancoDeDados,clubesSistema.values())
   
     else:
       print("Opção inválida")
