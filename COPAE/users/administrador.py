@@ -17,7 +17,6 @@ class Administrador(Pessoa):
     # Realiza o cadastro do administrador, solicitando informações adicionais específicas
     def set_cadastro(self, bancoDeDados):
         super().set_cadastro(bancoDeDados)  # Chama o método de cadastro da classe pai
-        print("Cadastro de ADMINISTRADOR")
         print("Insira seu nome de Usuário:")
         self.set_nome(input())  # Recebe o nome do administrador
         print("Insira seu email:")

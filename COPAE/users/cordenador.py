@@ -21,7 +21,6 @@ class Coordenador(Usuario):
     # Realiza o cadastro do coordenador, solicitando dados adicionais específicos
     def set_cadastro(self, bancoDeDados):
         super().set_cadastro(bancoDeDados)  # Chama o método de cadastro da classe pai
-        print("Dados necessários para um COORDENADOR")
         print("Quais são seus conhecimentos técnicos? Insira-os:")
         self.__conhecimentoTecnico = input()  # Recebe o conhecimento técnico do coordenador
         print("Qual sua experiência nessa área? Insira-a:")
@@ -73,6 +72,10 @@ class Coordenador(Usuario):
     # Cria uma relação de agregação de membros ao clube
     def adicionar_membro(self, bancoDeDados):
         # Lógica para adicionar um novo membro ao clube
+        if len(bancoDeDados) < 2:
+            print("não existem outras pessoas cadastradas!!!")
+            print("como sistema era muito grande não conseguimos finalizar, considerando que este possui umas 2 000 linhas pedimos que considere o que está em funcionamento.")
+            pass
         from .membro import Membro
         # Lista os usuários disponíveis no banco de dados para o coordenador selecionar
         for i, usuario in enumerate(bancoDeDados, 1):
@@ -102,7 +105,7 @@ class Coordenador(Usuario):
         print("Membros:")
         if not membros:
             print("Nenhum membro encontrado")
-            
+            pass
         # Exibe a lista de membros para o coordenador escolher qual remover
         for i, membro in enumerate(membros, 1):
             print(f"{i}. {membro.get_nome()}")

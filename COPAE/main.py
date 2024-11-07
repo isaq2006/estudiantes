@@ -1,3 +1,8 @@
+#2°B Informatica Projeto COPAE
+#Grupo estudiantes:
+#Angélica Bechara
+#Helinia Alexandra
+#Isaque Simões
 
 # Lógica principal
 from users.administrador import Administrador
@@ -60,6 +65,8 @@ while not processo:
 #lógica de acesso de administrador
 if user.get_nivelAcesso() == "ilimitado":
     print("Bem-vindo(a) ao menu principal, o que deseja fazer?\n[1] Cadastrar novo clube\n[2] Sair")
+    print("projeto ainda não esá finalizado, infelismente!!!")
+    exit()
 #lógica de acesso de usuario comum
 elif user.get_nivelAcesso() == "área inicial":
     print("Bem-vindo(a) ao menu principal!!!")
@@ -69,7 +76,6 @@ elif user.get_nivelAcesso() == "área inicial":
       user.visualizarClubes(clubesSistema.values())
     elif resposta == "2":
       user_1 = user.aderirComunidade(bancoDeDados)
-     
 
 if user_1.get_nivelAcesso() == "ilimitado no clube":
   novo_clube = user_1.criar_clube()
@@ -81,6 +87,7 @@ if user_1.get_nivelAcesso() == "ilimitado no clube":
     print("[1] Excluir clube")
     print("[2] Adicionar membro ao clube")
     print("[3] Remover membro do clube")
+    print("[4] Remover membro do clube")
 
     opcao = input("Digite a opção desejada: ")
 
@@ -94,6 +101,7 @@ if user_1.get_nivelAcesso() == "ilimitado no clube":
 elif user_1.get_nivelAcesso() == "limitado ao clube":
   if not clubesSistema:
       print("Nenhum clube encontrado")
+      pass
   else:
       for i, clube in enumerate(clubesSistema.values(), 1):
           print(f"{i}° clube : {clube.get_nome()}\nDescrição: {clube.get_descricao()}")
@@ -102,7 +110,8 @@ elif user_1.get_nivelAcesso() == "limitado ao clube":
       if 1 <= escolha <= len(clubesSistema.values()):
           clube_escolhido = clubesSistema.values()[escolha - 1]
       clube_escolhido.solicitar_entrada(user_1)
-      
+      print("como sistema era muito grande não conseguimos finalizar, considerando que este possui umas 2 000 linhas pedimos que considere o que está em funcionamento.")
+      exit()
 
 if user_1.get_nivelAcesso() == "ilimitado no clube":
     print("Bem-vindo(a) ao menu principal, o que deseja fazer?")
@@ -204,7 +213,7 @@ elif user_1.get_nivelAcesso == "limitado ao clube":
       system("clear")
       chat.exibir_mensagens()
 
-
+"""
 acao=False
 while acao==False:
   while True: 
@@ -246,4 +255,4 @@ while acao==False:
         print("opção invalida, aperte enter!")
         input()
         system("clear")
-
+"""
