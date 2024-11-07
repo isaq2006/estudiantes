@@ -1,8 +1,11 @@
-from abc import ABC, abstractmethod
-from os import system
+# Importação de bibliotecas necessárias
+from abc import ABC, abstractmethod  # ABC e abstractmethod são usados para criar classes abstratas e métodos abstratos
+from os import system  # Importação para manipular o terminal (limpeza de tela)
 
+# Definição da classe abstrata Pessoa
 class Pessoa(ABC):
     def __init__(self, id="", senha="", nome="", email="", fone="", nivelAcesso=""):
+        # Inicialização dos atributos privados da classe Pessoa
         self.__id = id
         self.__senha = senha
         self.__nome = nome
@@ -10,43 +13,47 @@ class Pessoa(ABC):
         self.__fone = fone
         self.__nivelAcesso = nivelAcesso
 
+    # Métodos "getters" para acessar os atributos privados da classe
     def get_id(self):
-      return self.__id
+        return self.__id
 
     def get_senha(self):
-      return self.__senha
+        return self.__senha
 
     def get_nome(self):
-      return self.__nome
+        return self.__nome
 
     def get_email(self):
-      return self.__email
+        return self.__email
 
     def get_fone(self):
-      return self.__fone
+        return self.__fone
 
     def get_nivelAcesso(self):
-      return self.__nivelAcesso
+        return self.__nivelAcesso
 
+    # Métodos "setters" para modificar os atributos privados da classe
     def set_id(self, id):
-      self.__id= id
-      
+        self.__id = id
+
     def set_senha(self, senha):
-      self.__senha = senha
+        self.__senha = senha
 
     def set_nome(self, nome):
-      self.__nome = nome
+        self.__nome = nome
 
     def set_email(self, email):
-      self.__email = email
+        self.__email = email
 
     def set_fone(self, telefone):
-      self.__fone = telefone
+        self.__fone = telefone
 
-    def set_nivelAcesso(self,nivelAcesso):
-      self.__nivelAcesso = nivelAcesso
+    def set_nivelAcesso(self, nivelAcesso):
+        self.__nivelAcesso = nivelAcesso
 
+    # Método para definir a senha do usuário
     def definir_senha(self):
+        # Este método permite ao usuário definir uma senha e confirmá-la
         while True:
             print("Digite uma senha:")
             senha = input()
@@ -55,7 +62,7 @@ class Pessoa(ABC):
             if senha == senhaConfirm:
                 system("clear")
                 print("Cadastro prosseguindo com sucesso")
-                self.__senha = senha
+                self.__senha = senha  # Senha confirmada e salva
                 break
             else:
                 system("claer")
@@ -63,8 +70,9 @@ class Pessoa(ABC):
                 print("Insira novamente sua senha")
                 continue
 
-
+    # Método para imprimir os dados da pessoa
     def get_imprimirDados(self):
+        # Exibe todos os atributos privados da classe Pessoa
         print(f"ID  {self.__id}")
         print(f"Senha: {self.__senha}")
         print(f"Nome: {self.__nome}")
@@ -72,9 +80,10 @@ class Pessoa(ABC):
         print(f"Fone: {self.__fone}")
         print(f"Nível de acesso: {self.__nivelAcesso}")
 
-
+    # Método para atualizar dados de cadastro de um usuário já existente
     def set_atualizarDados(self, bancoDeDados):
-        id=self.get_id()
+        # Verifica se o ID existe no banco de dados
+        id = self.get_id()
         if id in bancoDeDados:
             print("Deseja atualizar qual dado do seu cadastro?")
             print(f"1 Senha: {self.get_senha()}")
@@ -82,31 +91,34 @@ class Pessoa(ABC):
             print(f"3 Email: {self.get_email()}")
             print(f"4 Telefone: {self.get_fone()}")
             while True:
-              decAtualize = int(input("Digite o número do atributo que deseja atualizar: "))
-              novo_valor = input(f"Digite o novo valor: ")
-              if decAtualize == 1:
-                  self.set_senha(novo_valor)
-                  break
-              elif decAtualize == 2:
-                  self.set_nome(novo_valor)
-                  break
-              elif decAtualize == 3:
-                  self.set_email(novo_valor)
-                  break
-              elif decAtualize == 4:
-                  self.set_fone(novo_valor)
-                  break
-              else:
-                  print("Opção inválida")
-                  continue
-
+                # Usuário escolhe qual atributo deseja atualizar
+                decAtualize = int(input("Digite o número do atributo que deseja atualizar: "))
+                novo_valor = input(f"Digite o novo valor: ")
+                if decAtualize == 1:
+                    self.set_senha(novo_valor)  # Atualiza a senha
+                    break
+                elif decAtualize == 2:
+                    self.set_nome(novo_valor)  # Atualiza o nome
+                    break
+                elif decAtualize == 3:
+                    self.set_email(novo_valor)  # Atualiza o email
+                    break
+                elif decAtualize == 4:
+                    self.set_fone(novo_valor)  # Atualiza o telefone
+                    break
+                else:
+                    print("Opção inválida")
+                    continue
         else:
             print("Usuário não encontrado")
 
+    # Método de cadastro de um novo usuário
     def set_cadastro(self, bancoDeDados):
         system("clear")
         print("Insira seu ID:")
         id = input()
+        
+        # Verifica se o ID já está cadastrado no banco de dados
         while id in bancoDeDados:
             print("ID já vinculado")
             while True:
@@ -115,6 +127,7 @@ class Pessoa(ABC):
                 decisao1 = input()
                 system("clear")
                 if decisao1 == "1":
+                    # Chama o método de login caso o ID já esteja vinculado
                     return self.get_login(bancoDeDados)
                 elif decisao1 == "2":
                     print("O ID já está vinculado a outra conta!")
@@ -125,16 +138,19 @@ class Pessoa(ABC):
                 else:
                     print("Alternativa inválida")
                     continue
-        self.__id = id
+        self.__id = id  # Define o ID após verificar que ele é único
         print("Agora vamos definir sua senha, aperte ENTER para continuar")
         input()
         system('clear')
-        self.definir_senha()
+        self.definir_senha()  # Chama o método para definir a senha
 
+    # Método de login de um usuário usando o ID e a senha
     @classmethod
     def get_login(cls, pessoas):
         print("Insira seu ID (número identificador):")
         id = input()
+        
+        # Verifica se o ID está presente no banco de dados
         if id not in pessoas:
             print("Conta não encontrada! Aperte ENTER para voltarmos ao menu:")
             input()
@@ -144,6 +160,8 @@ class Pessoa(ABC):
             pessoa = pessoas.get(id)
             print("Insira sua senha:")
             senha = input()
+            
+            # Verifica a senha do usuário
             if pessoa.get_senha() != senha:
                 print("Senha incorreta! Aperte ENTER para tentar novamente:")
                 input()
@@ -153,6 +171,4 @@ class Pessoa(ABC):
                 print("Login realizado com sucesso! Seja bem-vindo!")
                 print("Aperte ENTER para finalizar")
                 input()
-                return True
-#quase  
-
+                return True  # Login bem-sucedido
