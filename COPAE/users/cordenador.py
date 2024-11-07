@@ -88,7 +88,7 @@ class Coordenador(Usuario):
         self.__clubeCordenando.get_membros().remove(membro_escolhido)
         print(f"O membro {membro_escolhido.get_nome()} foi removido com sucesso!")
 
-    def criar_atividade(self, atividade):
+    def criar_atividade(self):
         # Lógica para criar uma nova atividade
         from atividade import Atividade
         novaAtividade = Atividade()

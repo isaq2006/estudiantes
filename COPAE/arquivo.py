@@ -18,11 +18,26 @@ class Arquivo:
 
     def cancelar_envio(self):
         # Lógica para cancelar o envio do arquivo
-        self.__conteudo = ""
-        self.__autores = ""
-        self.__titulo = ""
+        del self
 
     def editar_envio(self):
+        """Edita o envio do arquivo"""
+
+        print("Voce deseja editar qual dado do seu envio?")
+        print("[1] Titulo")
+        print("[2] Autores")
+        print("[3] Conteudo")
+
+        choice = input()
+
+        if choice == "1":
+            self.__titulo = input("Digite o novo titulo do arquivo: ")
+        elif choice == "2":
+            self.__autores = input("Digite os novos autores do arquivo: ")
+        elif choice == "3":
+            self.__conteudo = input("Digite o novo conteudo do arquivo: ")
+            
+    def editar_arquivo(self):
         # Lógica para editar o envio do arquivo
         print("voce deseja editar qual dado do seu envio?\n[1] Titulo\n[2] Autores\n[3] Conteudo")
         decisao = input()
@@ -35,9 +50,15 @@ class Arquivo:
         elif decisao == "3":
             print("digite o novo conteudo do arquivo")
             self.__conteudo = input()
-
+    def visualizar(self):
+        print(f"Titulo: {self.__titulo}")
+        print(f"Autores: {self.__autores}")
+        print(f"Data de envio: {self.__data_envio}")
+        print(f"Conteudo: {self.__conteudo}")
+        print("\n")
     # Métodos getters
     def get_titulo(self):
+        
         return self.__titulo
 
     def get_autores(self):

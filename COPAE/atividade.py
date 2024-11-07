@@ -2,13 +2,13 @@ from datetime import datetime
 from datetime import datetime
 
 class Atividade:
-    def __init__(self, titulo="", descricao="", data_vencimento="", tipo_arquivo="", arquivo=None):
+    def __init__(self, titulo="", descricao="", data_vencimento="", tipo_arquivo="", respostas=None):
         self.__titulo = titulo
         self.__descricao = descricao
         self.__data_criacao = datetime.now()
         self.__data_vencimento = data_vencimento
         self.__tipo_arquivo = tipo_arquivo
-        self.__arquivo = arquivo
+        self.__respostas = respostas
 
     def concluir(self):
         from arquivo import Arquivo
@@ -17,31 +17,32 @@ class Atividade:
         """
         if self.__data_vencimento  < datetime.now():
             print("A data de vencimento desta atividade já foi ultrapassada.")
-        if self.__arquivo is None:
+        else:
             print("fazer upload do arquivo da atividade")
             arquivoAtividade = Arquivo()
-            arquivoAtividade.enviar_arquivo()
-            self.__arquivo = arquivoAtividade
-            print("arquivo enviado com sucesso")
+            arquivoAtividade.editar_arquivo()
+            self.__respostas.append(arquivoAtividade)
             print("A atividade foi concluída com sucesso!")
-        else:
-            print("A atividade foi concluída com sucesso!")
-            
 
     def visualizar(self):
         """
         Exibe detalhes da atividade.
         """
         print("Atividade:")
-        print(f"Título: {self.__titulo}")
-        print(f"Descrição: {self.__descricao}")
-        print(f"Data de Criação: {self.__data_criacao}")
-        print(f"Data de Vencimento: {self.__data_vencimento}")
-        print(f"Tipo de Arquivo: {self.__tipo_arquivo}")
+        print(f"\nTítulo: {self.__titulo}")
+        print(f"\nDescrição: {self.__descricao}")
+        print(f"\nData de Criação: {self.__data_criacao}")
+        print(f"\nData de Vencimento: {self.__data_vencimento}")
+        print(f"\nTipo de Arquivo: {self.__tipo_arquivo}")
         if self.__arquivo:
-            print(f"Arquivo: {self.__arquivo.get_titulo()}")
+            print(f"\nArquivo: {self.__arquivo.get_titulo()}")
         else:
-            print("Arquivo: Nenhum arquivo enviado")
+            print("\nArquivo: Nenhum arquivo enviado")
+            
+    def visualisar_respostas(self):
+        for i, resposta in enumerate(self.respostas, 1):
+            print(i)
+            resposta.visualizar()
 
     # Métodos getters
     def get_titulo(self):

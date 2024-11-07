@@ -91,15 +91,15 @@ if user_1.get_nivelAcesso == "ilimitado no clube":
     opcao = input("Digite a opção desejada: ")
 
     if opcao == "1":
-      user.excluirClube()
+      user_1.excluir_clube()
     elif opcao == "2":
-      user.adicionarMembro()
+      user_1.adicionar_membro(bancoDeDados.values())
     elif opcao == "3":
-      user.removerMembro()
+      user_1.remover_membro()
     elif opcao == "4":
-      user.criarAtividade()
+      user_1.criar_atividade()
     elif opcao == "5":
-      user.excluirAtividade()
+      user_1.excluir_atividade
     elif opcao == "6":
       break
         
@@ -114,6 +114,41 @@ elif user_1.get_nivelAcesso == "limitado ao clube":
       if 1 <= escolha <= len(clubesSistema.values()):
           clube_escolhido = clubesSistema.values()[escolha - 1]
       clube_escolhido.solicitar_entrada(user_1)
+      
+  while True:
+    print("Bem-vindo(a) ao menu principal, o que deseja fazer?")
+    print("[1] acessar atividades [2] acessar o chat\n")
+    opcao = input("Digite a opção desejada: ")
+    if opcao == "1":
+      atividades = clube_escolhido.get_atividades().values()
+      for i, atividade in enumerate(atividades, 1):
+        print(f"{i}")
+        print(atividade.get_titulo())
+        print("Deseja acessar alguma atividade?")
+        print("[1] Sim\n[2] Não")
+        decisao = input()
+      if decisao == "1":
+        print("Qual atividade deseja acessar?")
+        escolha=input()
+        atividade = atividades[escolha - 1]
+        atividade.visulizar()
+        print("Menu de atividade:")
+        print("[[1] enviar atividade \n[2] editar atividade\n")
+        escolha=input()
+        if escolha == "1":
+          atividade.concluir()
+        elif escolha == "2":
+         print
+          
+          
+        
+        break
+      elif decisao == "2":
+        break
+        
+    elif opcao == "2": 
+      clube_escolhido.editar_atividade(user_1)
+      break
       
 
 

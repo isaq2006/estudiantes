@@ -37,5 +37,8 @@ class Membro(Usuario):
         super().aderirComunidade(clubes)
 
     #aqui vemos a relação de associação com a classe Atividade através dá classe Clube
-    def enviarAtividade(self):
-        self.clubeAssociado.enviarAtividade()
+    def enviarAtividade(self,atividade):
+        self.clubeAssociado.set_atividade(atividade)
+        
+    def editarAtividade(self):
+        self.clubeAssociado.editarAtividade()
