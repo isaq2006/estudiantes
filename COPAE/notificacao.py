@@ -8,3 +8,4 @@ class Notificacao:
         print("Notificação:")
         print(f"Data de envio: {self.__data_envio}")
         print(f"Conteúdo: {self.__conteudo}")
+#quase

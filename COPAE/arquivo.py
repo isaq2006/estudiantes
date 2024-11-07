@@ -1,9 +1,10 @@
 from datetime import datetime
 
 class Arquivo:
-    def __init__(self, titulo="", autores="", data_envio="", conteudo=""):
+    def __init__(self, titulo="", autores="", id_autor="", data_envio="", conteudo=""):
         self.__titulo = titulo
         self.__autores = autores
+        self.__id_autor = id_autor
         self.__conteudo = conteudo
         self.__data_envio = datetime.now()
 
@@ -20,9 +21,9 @@ class Arquivo:
         # Lógica para cancelar o envio do arquivo
         del self
 
-    def editar_envio(self):
+    def editar_arquivo(self, id_autor):
         """Edita o envio do arquivo"""
-
+        self.__id_autor = id_autor
         print("Voce deseja editar qual dado do seu envio?")
         print("[1] Titulo")
         print("[2] Autores")
@@ -37,19 +38,22 @@ class Arquivo:
         elif choice == "3":
             self.__conteudo = input("Digite o novo conteudo do arquivo: ")
             
-    def editar_arquivo(self):
+    def editar_envio(self, id_autor):
         # Lógica para editar o envio do arquivo
-        print("voce deseja editar qual dado do seu envio?\n[1] Titulo\n[2] Autores\n[3] Conteudo")
-        decisao = input()
-        if decisao == "1":
-            print("digite o novo tiutlo do arquivo")
-            self.__titulo = input()
-        elif decisao == "2":
-            print("digite os novos autores do arquivo")
-            self.__autores = input()
-        elif decisao == "3":
-            print("digite o novo conteudo do arquivo")
-            self.__conteudo = input()
+        if id_autor != self.set_id_autor:
+            print("você não é o autor desta atividade")
+        else:
+            print("voce deseja editar qual dado do seu envio?\n[1] Titulo\n[2] Autores\n[3] Conteudo")
+            decisao = input()
+            if decisao == "1":
+                print("digite o novo tiutlo do arquivo")
+                self.__titulo = input()
+            elif decisao == "2":
+                print("digite os novos autores do arquivo")
+                self.__autores = input()
+            elif decisao == "3":
+                print("digite o novo conteudo do arquivo")
+                self.__conteudo = input()
     def visualizar(self):
         print(f"Titulo: {self.__titulo}")
         print(f"Autores: {self.__autores}")
@@ -66,6 +70,9 @@ class Arquivo:
 
     def get_data_envio(self):
         return self.__data_envio
+    
+    def get_id_autor(self):
+        return self.__id_autor
 
     # Métodos setters
     def set_titulo(self, titulo: str):
@@ -73,6 +80,9 @@ class Arquivo:
 
     def set_autores(self, autores):
         self.__autores = autores
+        
+    def set_id_autor(self, id):
+        self.__id_autor = id
 
     def set_data_envio(self, data_envio: float):
         self.__data_envio = data_envio

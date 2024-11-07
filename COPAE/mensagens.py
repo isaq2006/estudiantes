@@ -35,5 +35,8 @@ class Mensagem:
             destinatario.receber_mensagem(mensagem_encaminhada)
             print("Mensagem encaminhada com sucesso.")
 
+    def exibir_mensagem(self):
+        print(f"Mensagem de {self.__autor} as {self.__hora_envio}")
+        print(f"{self.__conteudo}")
         
     

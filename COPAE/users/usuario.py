@@ -20,12 +20,14 @@ class Usuario(Pessoa):
         self.set_fone(input())
         print("Quais são seus interesses? Insira-os:")
         self.__hobbies = input()
-        self.__nivelAcesso = "área inicial"
+        self.set_nivelAcesso("área inicial")
         
+    def get_nivelAcesso(self):
+        return super().get_nivelAcesso()
     # associação com a classe mensagem
     def enviarMensagem(self):
         from ..mensagens import Mensagem
-        
+        print("Digite seu texto abaixo")
         mensagem = Mensagem(self.get_nome(), input())
         return mensagem
         
@@ -36,24 +38,24 @@ class Usuario(Pessoa):
         print(mensagem.get_conteudo())
         
     def aderirComunidade(self, bancoDeDados):
-        print("voce deseja se inscrever ou criar um clube?")
-        print("[1] Criar um clube")
-        print("[2] Participar de um clube")
-        opcao = input()
-        if opcao == "1":
-            from cordenador import Coordenador
-            cordenador = Coordenador()
-            cordenador.set_cadastro(bancoDeDados)
+        while True:
+            print("voce deseja se inscrever ou criar um clube?")
+            print("[1] Criar um clube")
+            print("[2] Participar de um clube")
+            opcao = input()
+            if opcao == "1":
+                from .cordenador import Coordenador
+                cordenador = Coordenador()
+                cordenador.set_cadastro(bancoDeDados)
+                return cordenador
+            elif opcao == "2":
+                from .membro import Membro
+                membro = Membro()
+                membro.set_cadastro(bancoDeDados)
+                return membro
+            else:
+                print("Opção inválida. Por favor, escolha uma opção válida.")
             
-            return cordenador
-            
-        elif opcao == "2":
-            from membro import Membro
-            membro = Membro()
-            membro.set_cadastro(bancoDeDados)
-                    
-            return membro 
-        
     def visualizarClubes(self, clubes):
         for clube in clubes:
             print(f"Nome: {clube.get_nome()}")

@@ -69,7 +69,6 @@ class Clube:
         print("Nome: ", self.__nome)
         print("Descrição: ", self.__descricao)
         print("Cordenador: ", self.__cordenador.get_nome())
-        print("Membros: ", self.__membros)
-        print("Atividades: ", self.__atividades)
+        print("Membros: ", self.__membros.get_nome())
         print("Data de criação: ", self.__data_criacao)
         

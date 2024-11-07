@@ -21,3 +21,6 @@ class Administrador(Pessoa):
         print("insira seu cargo na Instituição:")
         self.__cargoInstituinte = input()
         self.set_nivelAcesso("ilimitado")
+        
+    def get_nivelAcesso(self):
+        return super().get_nivelAcesso()

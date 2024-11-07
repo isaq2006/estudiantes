@@ -22,6 +22,8 @@ class Coordenador(Usuario):
         self.set_nivelAcesso("ilimitado no clube")
         bancoDeDados[self.get_id()] = self
         
+    def get_nivelAcesso(self):
+        return super().get_nivelAcesso()
     def enviarMensagem(self):
         super().enviarMensagem()
     
@@ -36,8 +38,9 @@ class Coordenador(Usuario):
         
     def criar_clube(self):
         # Lógica para criar um novo clube
-        from ..clube import Clube
-        novoClube= Clube()
+        import clube
+        print("Benvindo a aba de criação!!!")
+        novoClube= clube.Clube()
         novoClube.set_cordenador=self
         print("Digite o nome do clume:")
         novoClube.set_nome=input()
@@ -45,8 +48,9 @@ class Coordenador(Usuario):
         novoClube.set_descricao=input()
         print("clube criado com sucesso!!!")
         self.__clubeCordenando = novoClube
-        
+
         return novoClube
+
         
     def excluir_clube(self):
         # Lógica para excluir o clube
@@ -54,7 +58,7 @@ class Coordenador(Usuario):
 
     def adicionar_membro(self, bancoDeDados):
         # Lógica para adicionar um novo membro ao clube
-        from membro import Membro
+        from .membro import Membro
         for i,usuario in enumerate(bancoDeDados,1):
            print(f"Usuario {i}: {usuario.get_nome()}")
         print("\nDigite a qual usuario você deseja adicionar:")
@@ -114,3 +118,6 @@ class Coordenador(Usuario):
                 atividade_escolhida = atividades[escolha - 1]
                 self.__clubeCordenando.get_atividades().remove(atividade_escolhida)
                 print(f"A atividade {atividade_escolhida.get_titulo()} foi excluída com sucesso!")
+                
+    def get_clubeCordenando(self):
+        return self.__clubeCordenando

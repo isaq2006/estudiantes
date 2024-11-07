@@ -154,5 +154,5 @@ class Pessoa(ABC):
                 print("Aperte ENTER para finalizar")
                 input()
                 return True
-              
+#quase  
 

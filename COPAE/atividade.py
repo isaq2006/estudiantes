@@ -10,7 +10,7 @@ class Atividade:
         self.__tipo_arquivo = tipo_arquivo
         self.__respostas = respostas
 
-    def concluir(self):
+    def concluir(self,id_autor):
         from arquivo import Arquivo
         """
         Conclui a atividade.
@@ -20,7 +20,7 @@ class Atividade:
         else:
             print("fazer upload do arquivo da atividade")
             arquivoAtividade = Arquivo()
-            arquivoAtividade.editar_arquivo()
+            arquivoAtividade.editar_arquivo(id_autor)
             self.__respostas.append(arquivoAtividade)
             print("A atividade foi concluída com sucesso!")
 
@@ -60,8 +60,8 @@ class Atividade:
     def get_tipo_arquivo(self):
         return self.__tipo_arquivo
 
-    def get_arquivo(self):
-        return self.__arquivo
+    def get_respostas(self):
+        return self.get_respostas
 
     # Métodos setters
     def set_titulo(self, titulo: str):
