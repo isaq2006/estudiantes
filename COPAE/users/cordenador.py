@@ -70,6 +70,7 @@ class Coordenador(Usuario):
         del self.__clubeCordenando, self  # Remove o clube do coordenador e exclui o coordenador
 
     # Adiciona um novo membro ao clube gerenciado pelo coordenador
+    # Cria uma relação de agregação de membros ao clube
     def adicionar_membro(self, bancoDeDados):
         # Lógica para adicionar um novo membro ao clube
         from .membro import Membro
@@ -81,7 +82,7 @@ class Coordenador(Usuario):
         if 1 <= escolha <= len(bancoDeDados):
             usuarioEscolhido = bancoDeDados[escolha - 1]
         
-        # Cria um novo membro e associa ao clube do coordenador
+        # Cria um novo membro e associa como uma agregação ao clube do coordenador
         novoMembro = Membro()
         novoMembro.set_id(usuarioEscolhido.get_id())
         novoMembro.set_senha(usuarioEscolhido.get_senha())
@@ -112,6 +113,7 @@ class Coordenador(Usuario):
             print(f"O membro {membro_escolhido.get_nome()} foi removido com sucesso!")
 
     # Cria uma nova atividade no clube gerenciado pelo coordenador
+    # Cria uma associação de agrgação de atividades ao clube
     def criar_atividade(self):
         # Lógica para criar uma nova atividade
         from atividade import Atividade
@@ -121,7 +123,7 @@ class Coordenador(Usuario):
         novaAtividade.set_data_vencimento(input("Digite a data de vencimento da atividade (formato: YYYY-MM-DD): "))
         novaAtividade.set_tipo_arquivo(input("Digite o tipo de arquivo aceito pela atividade: "))
         
-        # Adiciona a nova atividade ao clube do coordenador
+        # Adiciona a nova atividade ao clube do coordenador estabelecendo a agregação
         self.__clubeCordenando.get_atividades().append(novaAtividade)
         print(f"A atividade {novaAtividade.get_titulo()} foi criada com sucesso!")
 
