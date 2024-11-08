@@ -21,7 +21,6 @@ class Usuario(Pessoa):
         # Chamada ao método herdado de Pessoa para procedimentos comuns de cadastro
         super().set_cadastro(bancoDeDados)
         
-        print("Cadastro de USUÁRIO")
         print("Insira seu nome de Usuário:")
         self.set_nome(input())  # Seta o nome do usuário
         print("Insira seu email:")
@@ -35,6 +34,8 @@ class Usuario(Pessoa):
     # Método para obter o nível de acesso do usuário, herdado de Pessoa
     def get_nivelAcesso(self):
         return super().get_nivelAcesso()
+    def set_hobbies(self, hobbies):
+        self.__hobbies = hobbies
 
     # Associação com a classe Mensagem para enviar mensagens
     def enviarMensagem(self):
@@ -90,14 +91,11 @@ class Usuario(Pessoa):
     def visualizarClubes(self, clubes):
         if not clubes:
             print("Não esxistem clubes cadastrados no momento!!!")
-            print("como sistema era muito grande não conseguimos finalizar, considerando que este possui umas 2 000 linhas pedimos que considere o que está em funcionamento.")
-            exit()
         else:
             for clube in clubes:
                 # Exibição dos dados de cada clube
                 print(f"Nome: {clube.get_nome()}")
                 print(f"Descrição: {clube.get_descricao()}")
-                
                 # Associação com a classe Coordenador ao exibir o coordenador de cada clube
                 print(f"Cordenador: {clube.get_cordenador().get_nome()}")
                 print("\n")

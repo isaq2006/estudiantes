@@ -30,7 +30,12 @@ class Clube:
         self.__atividades.append(atividades)  
         
     def set_membros(self, membros):
-        self.__membros.append(membros)  
+        if membros is not None and isinstance(membros, list):
+            for membro in membros:
+                if membro is not None:
+                    self.__membros.append(membro)
+        elif membros is not None:
+            self.__membros.append(membros)  
     
     # Métodos getters para acessar os valores
     def get_atividades(self):
@@ -54,7 +59,7 @@ class Clube:
     def get_nome(self):
         return self.__nome
     
-    def get_descri(self):
+    def get_descricao(self):
         return self.__descricao
     
     def get_cordenador(self):

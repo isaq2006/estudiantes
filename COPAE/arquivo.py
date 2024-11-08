@@ -6,7 +6,7 @@ class Arquivo:
     def __init__(self, titulo="", autores="", id_autor="", data_envio="", conteudo=""):
         # Inicializa os atributos do arquivo com valores padrão ou recebidos no construtor
         self.__titulo = titulo  # Título do arquivo
-        self.__autores = autores  # Nome(s) dos autores do arquivo
+        self.__autores = autores  # Nomes dos autores do arquivo
         self.__id_autor = id_autor  # ID do autor para controle de edição
         self.__conteudo = conteudo  # Conteúdo do arquivo
         self.__data_envio = datetime.now()  # Define a data de envio como a data atual
@@ -84,6 +84,8 @@ class Arquivo:
         return self.__id_autor  # Retorna o ID do autor do arquivo
 
     # Métodos setters para modificar os atributos privados
+    def set_conteudo(self, conteudo):
+        self.__conteudo = conteudo  # Define um novo conteúdo para o arquivo
     def set_titulo(self, titulo: str):
         self.__titulo = titulo  # Define um novo título para o arquivo
 

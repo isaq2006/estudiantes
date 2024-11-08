@@ -3,21 +3,18 @@ from datetime import datetime
 
 # Definição da classe Atividade
 class Atividade:
-    def __init__(self, titulo="", descricao="", data_vencimento="", tipo_arquivo="", respostas=None):
+    def __init__(self, titulo="", descricao="", data_vencimento="", tipo_arquivo="", respostas=[]):
         # Inicializa os atributos da atividade com valores padrão ou recebidos no construtor
         self.__titulo = titulo  # Título da atividade
         self.__descricao = descricao  # Descrição da atividade
         self.__data_criacao = datetime.now()  # Define a data de criação como a data atual
         self.__data_vencimento = data_vencimento  # Data de vencimento da atividade
         self.__tipo_arquivo = tipo_arquivo  # Tipo de arquivo exigido para a atividade
-        self.__respostas = respostas if respostas else []  # Lista de respostas da atividade, inicializada como lista vazia
+        self.__respostas = respostas  # Lista de respostas da atividade, inicializada como lista vazia
 
     # Método para concluir a atividade, verificando se a data de vencimento foi ultrapassada
     def concluir(self, id_autor):
         from arquivo import Arquivo
-        """
-        Conclui a atividade.
-        """
         # Verifica se a data de vencimento foi ultrapassada
         if self.__data_vencimento < datetime.now():
             print("A data de vencimento desta atividade já foi ultrapassada.")
@@ -71,6 +68,9 @@ class Atividade:
         return self.__respostas  # Retorna a lista de respostas da atividade
 
     # Métodos setters para modificar os atributos privados
+    def set_respostas(self, respostas):  # Recebe uma lista de respostas
+        for resposta in respostas:
+          self.__respostas.append(resposta)  # Adiciona cada resposta a lista de respostas da atividade
     def set_titulo(self, titulo: str):
         self.__titulo = titulo  # Define um novo título para a atividade
 

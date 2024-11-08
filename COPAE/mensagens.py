@@ -19,6 +19,19 @@ class Mensagem:
     def get_hora_envio(self):
         # Retorna a hora de envio da mensagem.
         return self.__hora_envio
+    
+    # Setters
+    def set_conteudo(self, novo_conteudo):
+        # Define um novo conteúdo para a mensagem.
+        self.__conteudo = novo_conteudo
+
+    def set_autores(self, novo_autor):
+        # Define um novo autor para a mensagem.
+        self.__autor = novo_autor
+
+    def set_hora_envio(self, nova_hora):
+        # Define uma nova hora de envio para a mensagem.
+        self.__hora_envio = nova_hora
 
     def responder_mensagem(self, autor, mensagem):
         # Cria uma resposta para a mensagem original.

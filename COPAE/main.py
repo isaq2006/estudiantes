@@ -13,14 +13,15 @@ from users.membro import Membro
 from atividade import Atividade
 from clube import Clube
 from arquivo import Arquivo
+from mensagens import Mensagem
+from dadosPréexistentes import dadosPréexistentes
 from os import system
 
 print("--" * 32)
 print("Olá, Seja bem-vindo(a) ao nosso sistema de Organização de clubes!!!")
 print("--" * 32)
 
-bancoDeDados = {}
-clubesSistema = {}
+bancoDeDados, clubesSistema = dadosPréexistentes()
 
 # Lógica de cadastro
 processo = False
@@ -73,15 +74,27 @@ elif user.get_nivelAcesso() == "área inicial":
     print("\n[1] Visualizar clubes\n[2] Aderir a comunidade")
     resposta = input()
     if resposta == "1":
+      system("clear")
       user.visualizarClubes(clubesSistema.values())
+      print("Vocé deseja :\n[1] Aderir a comunidade \n[2] Sair do sistema")
+      resposta = input()	
+      if resposta == "1":
+        system("clear")
+        user_1 = user.aderirComunidade(bancoDeDados)
+      elif resposta == "2":
+        system("clear")
+        exit()
     elif resposta == "2":
+      system("clear")
       user_1 = user.aderirComunidade(bancoDeDados)
 
 if user_1.get_nivelAcesso() == "ilimitado no clube":
   novo_clube = user_1.criar_clube()
   clubesSistema[novo_clube.get_id()] = novo_clube
   
-  print("clube criado com sucesso!!!")
+  print("Aperte enter para prosseguir!")
+  input()
+  system("clear")
   while True:
     print("Bem-vindo(a) ao menu principal, o que deseja fazer?")
     print("[1] Excluir clube")
@@ -92,10 +105,16 @@ if user_1.get_nivelAcesso() == "ilimitado no clube":
     opcao = input("Digite a opção desejada: ")
 
     if opcao == "1":
-      user_1.excluir_clube()
+      system("clear")
+      clubesSistema = user_1.excluir_clube(clubesSistema)
     elif opcao == "2":
+      system("clear")
       user_1.adicionar_membro(bancoDeDados.values())
     elif opcao == "3":
+      system("clear")
+      user_1.remover_membro()
+    elif opcao == "4":
+      system("clear")
       user_1.remover_membro()
     
 elif user_1.get_nivelAcesso() == "limitado ao clube":
