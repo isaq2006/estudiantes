@@ -17,6 +17,11 @@ from mensagens import Mensagem
 from dadosPréexistentes import dadosPréexistentes
 from os import system
 
+class AlternativaInvalida(Exception):
+    #Exceção para alternativas inválidas.
+    def __init__(self, alternativa):
+        super().__init__(f"Alternativa '{alternativa}' escolhida é inválida!")
+
 print("--" * 32)
 print("Olá, Seja bem-vindo(a) ao nosso sistema de Organização de clubes!!!")
 print("--" * 32)
@@ -60,7 +65,7 @@ while not processo:
         else:
             continue
     else:
-        print("Opção inválida")
+        raise AlternativaInvalida(opcao)
 
 
 #lógica de acesso de administrador
