@@ -1,7 +1,7 @@
 #2°B Informatica Projeto COPAE
 #Grupo estudiantes:
 #Angélica Bechara
-#Helinia Alexandra
+#Helynia Alexandra
 #Isaque Simões
 
 # Lógica principal
@@ -16,6 +16,12 @@ from arquivo import Arquivo
 from mensagens import Mensagem
 from dadosPréexistentes import dadosPréexistentes
 from os import system
+from time import sleep 
+
+class EntradaVaziaException(Exception):
+    # Exceção para entradas vazias ou alternativas inválidas
+    def _init_(self, entrada, mensagem="Entrada inválida ou vazia."):
+        super()._init_(f"{mensagem} Entrada fornecida: '{entrada}'.")
 
 print("--" * 32)
 print("Olá, Seja bem-vindo(a) ao nosso sistema de Organização de clubes!!!")
@@ -26,67 +32,109 @@ bancoDeDados, clubesSistema = dadosPréexistentes()
 # Lógica de cadastro
 processo = False
 while not processo:
-    print("Você deseja realizar:\n[1] Cadastro\n[2] Login")
-    opcao = input()
-    system("clear")
+    try:
+        print("Você deseja realizar:\n[1] Cadastro\n[2] Login")
+        opcao = input().strip()
+        system("clear")
 
-    if opcao == "1":
-        while not processo:
-            print("Você deseja se cadastrar como:\n[1] Administrador\n[2] Usuário")
-            opcao2 = input()
-            system("clear")
-            if opcao2 == "1":
-                user = Administrador()
-                user.set_cadastro(bancoDeDados)
-                system("clear")
-                bancoDeDados[user.get_id()] = user
+        if not opcao:
+            raise EntradaVaziaException(opcao, "Nenhuma opção foi fornecida.")
+        elif opcao == "1":
+            while not processo:
+                try:
+                    print("Você deseja se cadastrar como:\n[1] Administrador\n[2] Usuário")
+                    opcao2 = input().strip()
+                    system("clear")
+                    
+                    if not opcao2:
+                        raise EntradaVaziaException(opcao2, "Nenhuma opção foi fornecida.")
+                    elif opcao2 == "1":
+                        user = Administrador()
+                        user.set_cadastro(bancoDeDados)
+                        system("clear")
+                        bancoDeDados[user.get_id()] = user
+                        processo = True
+                        break
+                    elif opcao2 == "2":
+                        user = Usuario()
+                        user.set_cadastro(bancoDeDados)
+                        system("clear")
+                        bancoDeDados[user.get_id()] = user
+                        processo = True
+                        break
+                    else:
+                        raise EntradaVaziaException(opcao2, "Alternativa inválida.")
+                except EntradaVaziaException as e:
+                    print(e)
+                else:
+                    print("Cadastrado com sucesso!!!")
+                finally:
+                    sleep(2)
+                    system("clear")
+        elif opcao == "2":
+            resultado = Pessoa.get_login(bancoDeDados)
+            if resultado:
                 processo = True
-                break
-            elif opcao2 == "2":
-                user = Usuario()
-                user.set_cadastro(bancoDeDados)
-                system("clear") 
-                bancoDeDados[user.get_id()] = user
-                processo = True
-                break
             else:
-                print("Opção inválida")
-                processo  = False
-                
-    elif opcao == "2":
-        resultado = Pessoa.get_login(bancoDeDados)
-        if resultado:
-            processo = True
+                continue
         else:
-            continue
+            raise EntradaVaziaException(opcao, "Alternativa inválida.")
+    except EntradaVaziaException as e:
+        print(e)
     else:
-        print("Opção inválida")
+        print("Acesso permitido!!!")
+    finally:
+        sleep(2)
+        system("clear")
 
-
-#lógica de acesso de administrador
-if user.get_nivelAcesso() == "ilimitado":
-    print("Bem-vindo(a) ao menu principal, o que deseja fazer?\n[1] Cadastrar novo clube\n[2] Sair")
-    print("projeto ainda não esá finalizado, infelismente!!!")
-    exit()
-#lógica de acesso de usuario comum
-elif user.get_nivelAcesso() == "área inicial":
+# Lógica de acesso de usuário comum à tela principal
+processo = False 
+if user.get_nivelAcesso() == "área inicial":
     print("Bem-vindo(a) ao menu principal!!!")
-    print("\n[1] Visualizar clubes\n[2] Aderir a comunidade")
-    resposta = input()
-    if resposta == "1":
-      system("clear")
-      user.visualizarClubes(clubesSistema.values())
-      print("Vocé deseja :\n[1] Aderir a comunidade \n[2] Sair do sistema")
-      resposta = input()	
-      if resposta == "1":
-        system("clear")
-        user_1 = user.aderirComunidade(bancoDeDados)
-      elif resposta == "2":
-        system("clear")
-        exit()
-    elif resposta == "2":
-      system("clear")
-      user_1 = user.aderirComunidade(bancoDeDados)
+    while not processo:
+        try:
+            print("\n[1] Visualizar clubes\n[2] Aderir à comunidade")
+            resposta = input().strip()  # Remove espaços em branco no início e no final
+
+            if not resposta:
+                raise EntradaVaziaException(resposta, "Nenhuma opção foi fornecida.")
+            elif resposta == "1":
+                system("clear")
+                user.visualizarClubes(clubesSistema.values())
+                while not processo:
+                    try:
+                        print("Você deseja:\n[1] Aderir à comunidade\n[2] Sair do sistema")
+                        resposta = input().strip()
+
+                        if not resposta:
+                            raise EntradaVaziaException(resposta, "Nenhuma opção foi fornecida.")
+                        elif resposta == "1":
+                            system("clear")
+                            user_1 = user.aderirComunidade(bancoDeDados, clubesSistema)
+                        elif resposta == "2":
+                            system("clear")
+                            exit()
+                        else:
+                            raise EntradaVaziaException(resposta, "Alternativa inválida.")
+                    except EntradaVaziaException as e:
+                        print(e)
+                    else:
+                        processo = True
+                    finally:
+                        sleep(2)
+                        system("clear")
+            elif resposta == "2":
+                system("clear")
+                user_1 = user.aderirComunidade(bancoDeDados, clubesSistema)
+            else:
+                raise EntradaVaziaException(resposta, "Alternativa inválida.")
+        except EntradaVaziaException as e:
+            print(e)
+        else:
+            processo = True
+        finally:
+            sleep(2)
+            system("clear")
 
 if user_1.get_nivelAcesso() == "ilimitado no clube":
   novo_clube = user_1.criar_clube()
