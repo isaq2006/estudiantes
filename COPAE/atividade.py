@@ -3,14 +3,14 @@ from datetime import datetime
 
 # Definição da classe Atividade
 class Atividade:
-    def __init__(self, titulo="", descricao="", data_vencimento="", tipo_arquivo="", respostas=[]):
+    def __init__(self, titulo="", descricao="", data_vencimento="", tipo_arquivo="", respostas=None):
         # Inicializa os atributos da atividade com valores padrão ou recebidos no construtor
         self.__titulo = titulo  # Título da atividade
         self.__descricao = descricao  # Descrição da atividade
         self.__data_criacao = datetime.now()  # Define a data de criação como a data atual
         self.__data_vencimento = data_vencimento  # Data de vencimento da atividade
         self.__tipo_arquivo = tipo_arquivo  # Tipo de arquivo exigido para a atividade
-        self.__respostas = respostas  # Lista de respostas da atividade, inicializada como lista vazia
+        self.__respostas = []  # Lista de respostas da atividade, inicializada como lista vazia
 
     # Método para concluir a atividade, verificando se a data de vencimento foi ultrapassada
     def concluir(self, id_autor):

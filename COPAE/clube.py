@@ -5,7 +5,7 @@ import uuid  # Importa para gerar um ID único para o clube
 
 # Definição da classe Clube
 class Clube:
-    def __init__(self, nome="", descricao="", cordenador=None, membros=[], atividades=[]):
+    def __init__(self, nome="", descricao="", cordenador=None, membros=None, atividades=None):
         # Inicializa atributos do clube
         self.__data_criacao = datetime.now()  # Define a data de criação como o momento atual
         self.__id = uuid.uuid4()  # Gera um ID único para o clube
@@ -13,8 +13,8 @@ class Clube:
         self.__nome = nome  # Nome do clube
         self.__descricao = descricao  # Descrição do clube
         self.__cordenador = cordenador  # Coordenador do clube
-        self.__membros = membros  # Lista de membros do clube
-        self.__atividades = atividades  # Lista de atividades do clube
+        self.__membros = []  # Lista de membros do clube
+        self.__atividades = [] # Lista de atividades do clube
         
     # Métodos setters para definir valores
     def set_nome(self, nome):
@@ -30,12 +30,7 @@ class Clube:
         self.__atividades.append(atividades)  
         
     def set_membros(self, membros):
-        if membros is not None and isinstance(membros, list):
-            for membro in membros:
-                if membro is not None:
-                    self.__membros.append(membro)
-        elif membros is not None:
-            self.__membros.append(membros)  
+        self.__membros.append(membros)  
     
     # Métodos getters para acessar os valores
     def get_atividades(self):

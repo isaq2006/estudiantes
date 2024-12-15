@@ -84,59 +84,155 @@ while not processo:
     sleep(2)
     system("clear")
 
+processo = False
 #lógica de acesso de administrador
 if user.get_nivelAcesso() == "ilimitado":
     print("Bem-vindo(a) ao menu principal, o que deseja fazer?\n[1] Cadastrar novo clube\n[2] Sair")
 
-#lógica de acesso de usuario comum
+
+#lógica de acesso de usuario comum a tela principal
 elif user.get_nivelAcesso() == "área inicial":
     print("Bem-vindo(a) ao menu principal!!!")
-    print("\n[1] Visualizar clubes\n[2] Aderir a comunidade")
-    resposta = input()
-    if resposta == "1":
-      system("clear")
-      user.visualizarClubes(clubesSistema.values())
-      print("Vocé deseja :\n[1] Aderir a comunidade \n[2] Sair do sistema")
-      resposta = input()	
-      if resposta == "1":
+    while not processo:
+      try:
+        print("\n[1] Visualizar clubes\n[2] Aderir a comunidade")
+        resposta = input()
+        if resposta == "1":
+          system("clear")
+          user.visualizarClubes(clubesSistema.values())
+          while not processo:
+            try:
+              print("Vocé deseja :\n[1] Aderir a comunidade \n[2] Sair do sistema")
+              resposta = input()	
+              if resposta == "1":
+                system("clear")
+                user_1 = user.aderirComunidade(bancoDeDados)
+              elif resposta == "2":
+                system("clear")
+                exit()
+              else:
+                raise AlternativaInvalida(resposta)
+            except AlternativaInvalida as e:
+              print(e)
+            else:
+              processo = True
+            finally:
+              sleep(2)
+              system("clear")
+        elif resposta == "2":
+          system("clear")
+          user_1 = user.aderirComunidade(bancoDeDados)
+        else:
+          raise AlternativaInvalida(resposta)
+      except AlternativaInvalida as e:
+        print(e)
+      else:
+        processo = True
+      finally:
+        sleep(2)
         system("clear")
-        user_1 = user.aderirComunidade(bancoDeDados)
-      elif resposta == "2":
-        system("clear")
-        exit()
-    elif resposta == "2":
-      system("clear")
-      user_1 = user.aderirComunidade(bancoDeDados)
-
+        
+processo = False
+#lógica de acesso de coordenador ao clube
 if user_1.get_nivelAcesso() == "ilimitado no clube":
   novo_clube = user_1.criar_clube()
   clubesSistema[novo_clube.get_id()] = novo_clube
-  
   print("Aperte enter para prosseguir!")
   input()
   system("clear")
-  while True:
-    print("Bem-vindo(a) ao menu principal, o que deseja fazer?")
-    print("[1] Excluir clube")
-    print("[2] Adicionar membro ao clube")
-    print("[3] Remover membro do clube")
-    print("[4] Remover membro do clube")
+  while not processo:
+    try: 
+      print("Bem-vindo(a) ao menu principal, o que deseja fazer?")
+      print("[1] Configurar clube (adicionar ou remover membros)")
+      print("[2] Acessar aba de interação")
+      print("[3] Sair")
+      opcao = input("Digite a opção desejada: ")
 
-    opcao = input("Digite a opção desejada: ")
+      if opcao == "1":
+        try:
+          print("Menu de configuração, o que deseja fazer?")
+          print("[1] Excluir clube")
+          print("[2] Adicionar membro ao clube")
+          print("[3] Remover membro do clube")
 
-    if opcao == "1":
+          opcao = input("Digite a opção desejada: ")
+
+          if opcao == "1":
+            system("clear")
+            clubesSistema = user_1.excluir_clube(clubesSistema)
+          elif opcao == "2":
+            system("clear")
+            user_1.adicionar_membro(bancoDeDados.values())
+          elif opcao == "3":
+            system("clear")
+            user_1.remover_membro()
+          else:
+            raise AlternativaInvalida(opcao)
+        except AlternativaInvalida as e:
+          print(e)
+        else:
+          print("voltando ao menu...")
+        finally:
+          sleep(2)
+          system("clear")
+          
+      elif opcao == "2":
+        try:
+          print("Aba de interação, o que deseja fazer?")
+          print("[1] Criar atividade")
+          print("[2] Excluir atividade")
+          print("[3] ver atividades")
+          print("[4] Acessar o chat")
+          opcao=input()
+          if opcao == "1":
+            user_1.criar_atividade()
+            
+          elif opcao == "2":
+            user_1.excluir_atividade()
+            
+          elif opcao == "3":
+            atividades = user_1.get_clubeCordenando().get_atividades()
+            for i, atividade in enumerate(atividades, 1):
+              print(f"{i}")
+              atividade.visualizar()
+            print("Deseja acessar as respostas de alguma atividade?")
+            print("[1] Sim\n[2] Não")
+            decisao = input()
+            if decisao == "1":
+              print("Qual atividade deseja acessar?")
+              escolha=input()
+              atividade = atividades[escolha - 1]
+              respostas= atividade.get_respostas()
+              for resposta in respostas:
+                resposta.visualizar_respostas()
+            elif decisao == "2":
+              pass
+            
+          elif opcao == "4":
+            processo = True
+          else:
+            raise AlternativaInvalida(opcao)
+        except AlternativaInvalida as e:
+          print(e)
+        else:
+          print("voltando ao menu...")
+        finally:
+          sleep(2)
+          system("clear")
+      elif opcao == "3":
+        exit()
+      else:
+        raise AlternativaInvalida(opcao)
+      
+    except AlternativaInvalida as e:
+      print(e)
+    else: 
+      print("processo em execução...")
+    finally:
+      sleep(2)
       system("clear")
-      clubesSistema = user_1.excluir_clube(clubesSistema)
-    elif opcao == "2":
-      system("clear")
-      user_1.adicionar_membro(bancoDeDados.values())
-    elif opcao == "3":
-      system("clear")
-      user_1.remover_membro()
-    elif opcao == "4":
-      system("clear")
-      user_1.remover_membro()
-    
+
+
 elif user_1.get_nivelAcesso() == "limitado ao clube":
   if not clubesSistema:
       print("Nenhum clube encontrado")
@@ -152,40 +248,6 @@ elif user_1.get_nivelAcesso() == "limitado ao clube":
       print("como sistema era muito grande não conseguimos finalizar, considerando que este possui umas 2 000 linhas pedimos que considere o que está em funcionamento.")
       exit()
 
-if user_1.get_nivelAcesso() == "ilimitado no clube":
-    print("Bem-vindo(a) ao menu principal, o que deseja fazer?")
-    print("[1] Criar atividade")
-    print("[2] Excluir atividade")
-    print("[3] ver atividades")
-    print("[4] Acessar o chat")
-    opcao=input()
-    if opcao == "1":
-      user_1.criar_atividade()
-      
-    elif opcao == "2":
-      user_1.excluir_atividade()
-      
-    elif opcao == "3":
-      atividades = user_1.get_clubeCordenando().get_atividades().values()
-      for i, atividade in enumerate(atividades, 1):
-        print(f"{i}")
-        atividade.visualizar()
-      print("Deseja acessar as respostas de alguma atividade?")
-      print("[1] Sim\n[2] Não")
-      decisao = input()
-      if decisao == "1":
-        print("Qual atividade deseja acessar?")
-        escolha=input()
-        atividade = atividades[escolha - 1]
-        respostas= atividade.get_respostas()
-        for resposta in respostas:
-          resposta.visualizar()
-      elif decisao == "2":
-        pass
-      
-    elif opcao == "4":
-      pass
-  
 
 elif user_1.get_nivelAcesso() == "limitado ao clube":
   while True:
