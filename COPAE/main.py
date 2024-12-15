@@ -16,6 +16,7 @@ from arquivo import Arquivo
 from mensagens import Mensagem
 from dadosPréexistentes import dadosPréexistentes
 from os import system
+from time import sleep
 
 class AlternativaInvalida(Exception):
     #Exceção para alternativas inválidas.
@@ -31,12 +32,14 @@ bancoDeDados, clubesSistema = dadosPréexistentes()
 # Lógica de cadastro
 processo = False
 while not processo:
+  try:
     print("Você deseja realizar:\n[1] Cadastro\n[2] Login")
     opcao = input()
     system("clear")
 
     if opcao == "1":
         while not processo:
+          try:
             print("Você deseja se cadastrar como:\n[1] Administrador\n[2] Usuário")
             opcao2 = input()
             system("clear")
@@ -55,8 +58,14 @@ while not processo:
                 processo = True
                 break
             else:
-                print("Opção inválida")
-                processo  = False
+                raise AlternativaInvalida(opcao2)
+          except AlternativaInvalida as e:
+            print(e)
+          else:
+            print("cadastrado com sucesso!!!") 
+          finally:
+            sleep(2)
+            system("clear") 
                 
     elif opcao == "2":
         resultado = Pessoa.get_login(bancoDeDados)
@@ -67,12 +76,18 @@ while not processo:
     else:
         raise AlternativaInvalida(opcao)
 
+  except AlternativaInvalida as e:
+    print(e)
+  else:
+    print("Acesso permitido!!!")
+  finally:
+    sleep(2)
+    system("clear")
 
 #lógica de acesso de administrador
 if user.get_nivelAcesso() == "ilimitado":
     print("Bem-vindo(a) ao menu principal, o que deseja fazer?\n[1] Cadastrar novo clube\n[2] Sair")
-    print("projeto ainda não esá finalizado, infelismente!!!")
-    exit()
+
 #lógica de acesso de usuario comum
 elif user.get_nivelAcesso() == "área inicial":
     print("Bem-vindo(a) ao menu principal!!!")
