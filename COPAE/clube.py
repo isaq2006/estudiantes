@@ -26,8 +26,13 @@ class Clube:
     def set_cordenador(self, cordenador):
         self.__cordenador = cordenador      
         
-    def set_atividades(self, atividades):
-        self.__atividades.append(atividades)  
+    def set_atividades(self, atividade):
+        for atividadex in self.__atividades:
+            if atividadex.get_titulo() == atividade.get_titulo():
+                self.__atividades.remove(atividadex)
+            else:
+                pass
+        self.__atividades.append(atividade)  
         
     def set_membros(self, membros):
         self.__membros.append(membros)  

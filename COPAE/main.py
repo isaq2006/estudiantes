@@ -84,6 +84,7 @@ while not processo:
     sleep(2)
     system("clear")
 
+
 processo = False
 #lógica de acesso de administrador
 if user.get_nivelAcesso() == "ilimitado":
@@ -106,7 +107,7 @@ elif user.get_nivelAcesso() == "área inicial":
               resposta = input()	
               if resposta == "1":
                 system("clear")
-                user_1 = user.aderirComunidade(bancoDeDados)
+                user_1 = user.aderirComunidade(bancoDeDados, clubesSistema)
               elif resposta == "2":
                 system("clear")
                 exit()
@@ -121,7 +122,7 @@ elif user.get_nivelAcesso() == "área inicial":
               system("clear")
         elif resposta == "2":
           system("clear")
-          user_1 = user.aderirComunidade(bancoDeDados)
+          user_1 = user.aderirComunidade(bancoDeDados, clubesSistema)
         else:
           raise AlternativaInvalida(resposta)
       except AlternativaInvalida as e:
@@ -149,76 +150,89 @@ if user_1.get_nivelAcesso() == "ilimitado no clube":
       opcao = input("Digite a opção desejada: ")
 
       if opcao == "1":
-        try:
-          print("Menu de configuração, o que deseja fazer?")
-          print("[1] Excluir clube")
-          print("[2] Adicionar membro ao clube")
-          print("[3] Remover membro do clube")
+        processo1 = False
+        while not processo1:
+          try:
+            print("Menu de configuração, o que deseja fazer?")
+            print("[1] Excluir clube")
+            print("[2] Adicionar membro ao clube")
+            print("[3] Remover membro do clube")
+            print("[4] Voltar ao menu principal")
 
-          opcao = input("Digite a opção desejada: ")
+            opcao = input("Digite a opção desejada: ")
 
-          if opcao == "1":
-            system("clear")
-            clubesSistema = user_1.excluir_clube(clubesSistema)
-          elif opcao == "2":
-            system("clear")
-            user_1.adicionar_membro(bancoDeDados.values())
-          elif opcao == "3":
-            system("clear")
-            user_1.remover_membro()
+            if opcao == "1":
+              system("clear")
+              clubesSistema = user_1.excluir_clube(clubesSistema)
+            elif opcao == "2":
+              system("clear")
+              user_1.adicionar_membro(bancoDeDados.values())
+            elif opcao == "3":
+              system("clear")
+              user_1.remover_membro()
+            elif opcao == "4":
+              print ("Voltando ao menu principal...")
+              processo1 = True
+            else:
+              raise AlternativaInvalida(opcao)
+          except AlternativaInvalida as e:
+            print(e)
           else:
-            raise AlternativaInvalida(opcao)
-        except AlternativaInvalida as e:
-          print(e)
-        else:
-          print("voltando ao menu...")
-        finally:
-          sleep(2)
-          system("clear")
-          
+            print("voltando ao menu...")
+          finally:
+            sleep(2)
+            system("clear")
+            
       elif opcao == "2":
-        try:
-          print("Aba de interação, o que deseja fazer?")
-          print("[1] Criar atividade")
-          print("[2] Excluir atividade")
-          print("[3] ver atividades")
-          print("[4] Acessar o chat")
-          opcao=input()
-          if opcao == "1":
-            user_1.criar_atividade()
-            
-          elif opcao == "2":
-            user_1.excluir_atividade()
-            
-          elif opcao == "3":
-            atividades = user_1.get_clubeCordenando().get_atividades()
-            for i, atividade in enumerate(atividades, 1):
-              print(f"{i}")
-              atividade.visualizar()
-            print("Deseja acessar as respostas de alguma atividade?")
-            print("[1] Sim\n[2] Não")
-            decisao = input()
-            if decisao == "1":
-              print("Qual atividade deseja acessar?")
-              escolha=input()
-              atividade = atividades[escolha - 1]
-              respostas= atividade.get_respostas()
-              for resposta in respostas:
-                resposta.visualizar_respostas()
-            elif decisao == "2":
-              pass
-            
-          elif opcao == "4":
-            processo = True
+        processo2 = False
+        while not processo2:
+          try:
+            print("Aba de interação, o que deseja fazer?")
+            print("[1] Criar atividade")
+            print("[2] Excluir atividade")
+            print("[3] ver atividades")
+            print("[4] Acessar o chat")
+            print("[5] Voltar ao menu principal")
+            opcao=input()
+            if opcao == "1":
+              user_1.criar_atividade()
+              
+            elif opcao == "2":
+              user_1.excluir_atividade()
+              
+            elif opcao == "3":
+              atividades = user_1.get_clubeCordenando().get_atividades()
+              for i, atividade in enumerate(atividades, 1):
+                print(f"{i}")
+                atividade.visualizar()
+              print("Deseja acessar as respostas de alguma atividade?")
+              print("[1] Sim\n[2] Não")
+              decisao = input()
+              if decisao == "1":
+                print("Qual atividade deseja acessar?")
+                escolha=input()
+                atividade = atividades[escolha - 1]
+                respostas= atividade.get_respostas()
+                for resposta in respostas:
+                  resposta.visualizar_respostas()
+              elif decisao == "2":
+                pass
+              
+            elif opcao == "4":
+              processo2 = True
+              processo = True
+            elif opcao == "5":
+              print ("Voltando ao menu principal...")
+              processo2 = True
+            else:
+              raise AlternativaInvalida(opcao)
+          except AlternativaInvalida as e:
+            print(e)
           else:
-            raise AlternativaInvalida(opcao)
-        except AlternativaInvalida as e:
-          print(e)
-        else:
-          print("voltando ao menu...")
-        finally:
-          sleep(2)
-          system("clear")
+            print("voltando ao menu...")
+          finally:
+            sleep(2)
+            system("clear")
       elif opcao == "3":
         exit()
       else:
@@ -232,59 +246,132 @@ if user_1.get_nivelAcesso() == "ilimitado no clube":
       sleep(2)
       system("clear")
 
-
-elif user_1.get_nivelAcesso() == "limitado ao clube":
-  if not clubesSistema:
-      print("Nenhum clube encontrado")
-      pass
-  else:
-      for i, clube in enumerate(clubesSistema.values(), 1):
-          print(f"{i}° clube : {clube.get_nome()}\nDescrição: {clube.get_descricao()}")
+processo = False
+#logica para acessar o clube como um membro
+if user_1.get_nivelAcesso() == "limitado ao clube":
+  user_1.visualizarClubes(clubesSistema)
+  while True:
+    try:
       print("\nDigite a qual clube você deseja participar:")
       escolha = int(input())
       if 1 <= escolha <= len(clubesSistema.values()):
           clube_escolhido = clubesSistema.values()[escolha - 1]
-      clube_escolhido.solicitar_entrada(user_1)
-      print("como sistema era muito grande não conseguimos finalizar, considerando que este possui umas 2 000 linhas pedimos que considere o que está em funcionamento.")
-      exit()
-
-
-elif user_1.get_nivelAcesso() == "limitado ao clube":
-  while True:
-    print("Bem-vindo(a) ao menu principal, o que deseja fazer?")
-    print("[1] acessar atividades [2] acessar o chat\n")
-    opcao = input()
-    if opcao == "1":
-      atividades = clube_escolhido.get_atividades().values()
-      for i, atividade in enumerate(atividades, 1):
-        print(f"{i}")
-        print(atividade.get_titulo())
-        print("Deseja acessar alguma atividade?")
-        print("[1] Sim\n[2] Não")
-        decisao = input()
-      if decisao == "1":
-        print("Qual atividade deseja acessar?")
-        escolha=input()
-        atividade = atividades[escolha - 1]
-        atividade.visulizar()
-        print("Menu de atividade:")
-        print("[[1] enviar atividade \n[2] editar atividade\n")
-        escolha=input()
-        if escolha == "1":
-          atividade.concluir(user_1.get_id)
-          break
-        elif escolha == "2":
-          respostas= atividade.get_respostas()
-          for resposta in respostas:
-            if resposta.get_id_autor() == user_1.get_id():
-              resposta.editar_envio()
-            else:
-              pass
-      elif decisao == "2":
-        break
-    
-    elif opcao == "2": 
+          clube_escolhido.solicitar_entrada(user_1)
+      else:
+          raise AlternativaInvalida(escolha)
+    except AlternativaInvalida as e:
+      print(e)
+    else:
       break
+    finally:
+      sleep(2)
+      system("clear")
+  
+  while not processo:
+    try:
+      print("Bem-vindo(a) ao menu principal, o que deseja fazer?")
+      print("[1] acessar atividades \n[2] acessar o chat\n[3] Sair")
+      opcao = input()
+      if opcao == "1":
+        processo1 = False
+        while not processo1:
+          try:
+            print("Menu de atividades:")
+            print("[1] ver atividades \n[2] enviar/editar envio de atividade\n[3] voltar ao menu principal")
+            decisao = input()
+            if decisao == "1":	
+              atividades = clube_escolhido.get_atividades()
+              for i, atividade in enumerate(atividades, 1):
+                print(f"{i}°")
+                atividade.visualizar()
+                    
+            elif decisao == "2":
+              while True:
+                try:
+                  print("Qual atividade deseja enviar?\n")
+                  atividades = clube_escolhido.get_atividades()
+                  for i, atividade in enumerate(atividades, 1):
+                    print(f"\n{i}° Atividade: {atividade.get_titulo()}")
+                    situacao=False
+                    respostas = atividade.get_respostas()
+                    for resposta in respostas:
+                      if  resposta.get_id_autor() == user_1.get_id():
+                        situacao=True
+                        print(f" Resposta: {resposta.get_titulo()}")
+                      else:
+                        pass
+                    if situacao == False:
+                      print("Nenhuma resposta enviada")
+                    
+                  escolha=input()
+                  atividade = atividades[escolha - 1]
+                except IndexError:
+                  print("Atividade nao encontrada")
+                  print("selecione uma atividade existente")
+                else:
+                  existenciaDeResposta = False
+                  respostas = atividade.get_respostas()
+                  for resposta in respostas:
+                    if resposta.get_id_autor() == user_1.get_id():
+                      while True:
+                        try:
+                          print("Voce ja realizou o envio desta atividade")
+                          print("[1]Deseja editar o envio desta  atividade?")
+                          print("[2]voltar ao menu")
+                          escolha = input()
+                          if escolha == "1":
+                            resposta.editar_envio(user_1.get_id())
+                            atividade.set_respostas(resposta)
+                            clube_escolhido.set_atividades(atividade)
+                          elif  escolha == "2":
+                            
+                            pass
+                          else:
+                            raise AlternativaInvalida(escolha)  
+                        except AlternativaInvalida as e:
+                          print(e)
+                        else:
+                          existenciaDeResposta = True
+                          break
+                        finally:
+                          sleep(2)
+                          system("clear")
+                    else:
+                      pass
+                    
+                  if existenciaDeResposta == False:
+                    atividade.concluir(user_1.get_id)
+                    clube_escolhido.set_atividades(atividade)
+                    break
+                  
+            elif decisao == "3":
+              processo1 = True
+            else: 
+              raise AlternativaInvalida(decisao)  
+              
+          except AlternativaInvalida as e:
+            print(e)
+          else:
+            print("Atividade enviada com sucesso!")
+            break
+          finally:
+            sleep(2)
+            system("clear")
+          
+      elif opcao == "2": 
+        processo2 =  True
+      elif opcao == "3":
+        exit()
+        
+      else:
+        raise AlternativaInvalida(opcao)
+    except AlternativaInvalida as e:
+      print(e)
+    else:
+      print("processo em execução...")
+    finally:
+      sleep(2)
+      system("clear")
       
 if user_1.get_nivelAcesso() == "ilimitado no clube":
   clube = user_1.get_clubeCordenando()

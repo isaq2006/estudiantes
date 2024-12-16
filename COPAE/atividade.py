@@ -21,7 +21,7 @@ class Atividade:
         else:
             print("Faça o upload do arquivo da atividade.")
             arquivoAtividade = Arquivo()  # Cria uma instância de Arquivo
-            arquivoAtividade.editar_arquivo(id_autor)  # Edita o arquivo usando o ID do autor
+            arquivoAtividade.enviar_arquivo(id_autor)  # Edita o arquivo usando o ID do autor
             self.__respostas.append(arquivoAtividade)  # Adiciona o arquivo à lista de respostas
             print("A atividade foi concluída com sucesso!")
 
@@ -68,9 +68,13 @@ class Atividade:
         return self.__respostas  # Retorna a lista de respostas da atividade
 
     # Métodos setters para modificar os atributos privados
-    def set_respostas(self, respostas):  # Recebe uma lista de respostas
-        for resposta in respostas:
-          self.__respostas.append(resposta)  # Adiciona cada resposta a lista de respostas da atividade
+    def set_respostas(self, resposta):  # Recebe uma lista de respostas
+        for respostax in self.__respostas:
+            if respostax.get_id_autor() == resposta.get_id_autor():
+                self.__respostas.remove(respostax)
+            else:
+                pass
+        self.__respostas.append(resposta)  # Adiciona a resposta à lista de respostas da atividade
     def set_titulo(self, titulo: str):
         self.__titulo = titulo  # Define um novo título para a atividade
 
