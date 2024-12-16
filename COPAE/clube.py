@@ -31,8 +31,7 @@ class Clube:
             if atividadex.get_titulo() == atividade.get_titulo():
                 self.__atividades.remove(atividadex)
             else:
-                pass
-        self.__atividades.append(atividade)  
+                self.__atividades.append(atividade)  
         
     def set_membros(self, membros):
         self.__membros.append(membros)  

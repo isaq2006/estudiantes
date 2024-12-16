@@ -143,7 +143,7 @@ class Coordenador(Usuario):
         novaAtividade.set_tipo_arquivo(input("Digite o tipo de arquivo aceito pela atividade: "))
         
         # Adiciona a nova atividade ao clube do coordenador estabelecendo a agregação
-        self.__clubeCordenando.get_atividades().append(novaAtividade)
+        self.__clubeCordenando.set_atividades(novaAtividade)
         print(f"A atividade {novaAtividade.get_titulo()} foi criada com sucesso!")
 
     # Exclui uma atividade específica do clube gerenciado pelo coordenador
@@ -155,13 +155,15 @@ class Coordenador(Usuario):
         # Exibe a lista de atividades para o coordenador escolher qual excluir
         print("Atividades:")
         for i, atividade in enumerate(atividades, 1):
-            print(f"{i}. {atividade.get_titulo()}")
+            print(f"{i}°. {atividade.get_titulo()}")
         
         escolha = int(input("Digite o número da atividade que deseja excluir: "))
         if 1 <= escolha <= len(atividades):
             atividade_escolhida = atividades[escolha - 1]
-            self.__clubeCordenando.get_atividades().remove(atividade_escolhida)  # Remove a atividade do clube
+            self.__clubeCordenando.set_atividades(atividade_escolhida)  # Remove a atividade do clube
             print(f"A atividade {atividade_escolhida.get_titulo()} foi excluída com sucesso!")
+        else:
+            print("Opção inválida. Por favor, escolha uma opção válida.")
 
     # Retorna o clube que o coordenador está gerenciando
     def get_clubeCordenando(self):

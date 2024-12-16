@@ -16,7 +16,7 @@ def dadosPréexistentes():
     from os import system
 
     bancoDeDados = {}
-    clubesSistema = {}
+    clubesSistema = []
 
     ################### PREENCHIMENTO DO BANCO DE DADOS PARA EXEMPLIFICAR O FUNCIONAMENTO DO CÓDIGO #################
     #Observação: atesto que usamos chatgpt para gerar varias situações, para facilitar o procedimento, afinal são mais de 500 linhas.
@@ -63,6 +63,11 @@ def dadosPréexistentes():
     usuario4.set_nivelAcesso("área inicial")
     bancoDeDados[usuario4.get_id()] = usuario4
 
+    clube1 = Clube()
+    clube1.set_nome("COPAE")
+    clube1.set_descricao("Clube de Olimpiadas de Programação de Algoritmos e Estrutura de Dados")
+    
+    
     Coordenador1 = Coordenador()
     Coordenador1.set_id("8573")
     Coordenador1.set_nome("Helinia")
@@ -72,13 +77,9 @@ def dadosPréexistentes():
     Coordenador1.set_conhecimentoTecnico("programação")
     Coordenador1.set_experiencia("5 anos")
     Coordenador1.set_nivelAcesso("ilimitado no clube")
+    Coordenador1.set_clube(clube1)
     bancoDeDados[Coordenador1.get_id()] = Coordenador1
 
-    clube1 = Clube()
-    clube1.set_nome("COPAE")
-    clube1.set_descricao("Clube de Olimpiadas de Programação de Algoritmos e Estrutura de Dados")
-    clubesSistema[clube1.get_id()] = clube1
-    Coordenador1.set_clube(clube1)
     clube1.set_cordenador(Coordenador1)
 
     membro1 = Membro()
@@ -203,7 +204,8 @@ def dadosPréexistentes():
     atividade3.set_respostas(arquivos3)
 
     atividades1=[atividade1, atividade2, atividade3]
-    clube1.set_atividades(atividades1)
+    for atividade in atividades1:
+        clube1.set_atividades(atividade)
 
     chatClube1 =  clube1.get_chat()
 
@@ -248,6 +250,13 @@ def dadosPréexistentes():
     mensagem7.set_autores(Coordenador1.get_nome())
     mensagem7.set_conteudo("Isso mesmo, Maria! O objetivo aqui é nos apoiarmos e trocarmos conhecimentos. Qualquer dúvida, vamos discutindo no chat. Conto com todos!")
     chatClube1.send_mensage(mensagem7)
+    
+    clubesSistema.append(clube1)
+
+
+    clube2 = Clube()
+    clube2.set_nome("Clube de Literatura")
+    clube2.set_descricao("Clube de Literatura e Escrita Criativa para apaixonados por leitura e desenvolvimento literário.")
 
     Coordenador2 = Coordenador()
     Coordenador2.set_id("2021")
@@ -258,13 +267,9 @@ def dadosPréexistentes():
     Coordenador2.set_conhecimentoTecnico("literatura clássica e escrita criativa")
     Coordenador2.set_experiencia("10 anos")
     Coordenador2.set_nivelAcesso("ilimitado no clube")
+    Coordenador2.set_clube(clube2)
     bancoDeDados[Coordenador2.get_id()] = Coordenador2
 
-    clube2 = Clube()
-    clube2.set_nome("Clube de Literatura")
-    clube2.set_descricao("Clube de Literatura e Escrita Criativa para apaixonados por leitura e desenvolvimento literário.")
-    clubesSistema[clube2.get_id()] = clube2
-    Coordenador2.set_clube(clube2)
     clube2.set_cordenador(Coordenador2)
 
     membro4 = Membro()
@@ -385,7 +390,8 @@ def dadosPréexistentes():
 
     # Associando as atividades ao clube
     atividades_lit = [atividade1_lit, atividade2_lit, atividade3_lit]
-    clube2.set_atividades(atividades_lit)
+    for atividade in atividades_lit:
+        clube2.set_atividades(atividade)
 
     chatClube2 = clube2.get_chat()
 
@@ -409,6 +415,13 @@ def dadosPréexistentes():
     mensagem4_lit.set_conteudo("Concordo com o Miguel! Uma oficina de sentimentos e personalidades seria incrível. Podemos começar com um personagem em comum?")
     chatClube2.send_mensage(mensagem4_lit)
 
+    clubesSistema.append(clube2)
+
+    clube3 = Clube()
+    clube3.set_nome("Clube de Sustentabilidade")
+    clube3.set_descricao("Clube dedicado a explorar práticas sustentáveis e ciência ambiental.")
+    
+
     Coordenador3 = Coordenador()
     Coordenador3.set_id("3031")
     Coordenador3.set_nome("Carolina")
@@ -418,14 +431,11 @@ def dadosPréexistentes():
     Coordenador3.set_conhecimentoTecnico("ecologia e sustentabilidade")
     Coordenador3.set_experiencia("8 anos")
     Coordenador3.set_nivelAcesso("ilimitado no clube")
+    Coordenador3.set_clube(clube3)
     bancoDeDados[Coordenador3.get_id()] = Coordenador3
 
-    clube3 = Clube()
-    clube3.set_nome("Clube de Sustentabilidade")
-    clube3.set_descricao("Clube dedicado a explorar práticas sustentáveis e ciência ambiental.")
-    clubesSistema[clube3.get_id()] = clube3
-    Coordenador3.set_clube(clube3)
     clube3.set_cordenador(Coordenador3)
+
 
     membro7 = Membro()
     membro7.set_id("3033")
@@ -545,7 +555,8 @@ def dadosPréexistentes():
 
     # Associando as atividades ao clube
     atividades_sust = [atividade1_sust, atividade2_sust, atividade3_sust]
-    clube3.set_atividades(atividades_sust)
+    for atividade in atividades_sust:
+        clube3.set_atividades(atividade)
 
     chatClube3 = clube3.get_chat()
 
@@ -568,5 +579,7 @@ def dadosPréexistentes():
     mensagem4_sust.set_autores(membro9.get_nome())
     mensagem4_sust.set_conteudo("Oi, todos! Podemos explorar como a ciência dos oceanos e a preservação ambiental estão conectadas. Posso contribuir com dados sobre impacto costeiro.")
     chatClube3.send_mensage(mensagem4_sust)
+    
+    clubesSistema.append(clube3)
     
     return bancoDeDados, clubesSistema

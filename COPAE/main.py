@@ -96,39 +96,26 @@ elif user.get_nivelAcesso() == "área inicial":
     print("Bem-vindo(a) ao menu principal!!!")
     while not processo:
       try:
-        print("\n[1] Visualizar clubes\n[2] Aderir a comunidade")
+        print("\n[1] Visualizar clubes\n[2] Aderir a comunidade\n[3] Sair")
         resposta = input()
         if resposta == "1":
-          system("clear")
-          user.visualizarClubes(clubesSistema.values())
-          while not processo:
-            try:
-              print("Vocé deseja :\n[1] Aderir a comunidade \n[2] Sair do sistema")
-              resposta = input()	
-              if resposta == "1":
-                system("clear")
-                user_1 = user.aderirComunidade(bancoDeDados, clubesSistema)
-              elif resposta == "2":
-                system("clear")
-                exit()
-              else:
-                raise AlternativaInvalida(resposta)
-            except AlternativaInvalida as e:
-              print(e)
-            else:
-              processo = True
-            finally:
-              sleep(2)
-              system("clear")
+          user.visualizarClubes(clubesSistema)
+          print("Aperte enter para voltar ao menu...")
+          resposta = input()	
+          
         elif resposta == "2":
           system("clear")
           user_1 = user.aderirComunidade(bancoDeDados, clubesSistema)
+          processo = True
+        elif resposta == "3":
+          system("clear")
+          exit()
         else:
           raise AlternativaInvalida(resposta)
       except AlternativaInvalida as e:
         print(e)
       else:
-        processo = True
+        print("Processando...")
       finally:
         sleep(2)
         system("clear")
@@ -137,7 +124,7 @@ processo = False
 #lógica de acesso de coordenador ao clube
 if user_1.get_nivelAcesso() == "ilimitado no clube":
   novo_clube = user_1.criar_clube()
-  clubesSistema[novo_clube.get_id()] = novo_clube
+  clubesSistema.append(novo_clube)
   print("Aperte enter para prosseguir!")
   input()
   system("clear")
@@ -159,7 +146,7 @@ if user_1.get_nivelAcesso() == "ilimitado no clube":
             print("[3] Remover membro do clube")
             print("[4] Voltar ao menu principal")
 
-            opcao = input("Digite a opção desejada: ")
+            opcao = input()
 
             if opcao == "1":
               system("clear")
@@ -203,21 +190,32 @@ if user_1.get_nivelAcesso() == "ilimitado no clube":
             elif opcao == "3":
               atividades = user_1.get_clubeCordenando().get_atividades()
               for i, atividade in enumerate(atividades, 1):
-                print(f"{i}")
+                print(f"{i}° Atividade:")
                 atividade.visualizar()
-              print("Deseja acessar as respostas de alguma atividade?")
-              print("[1] Sim\n[2] Não")
-              decisao = input()
-              if decisao == "1":
-                print("Qual atividade deseja acessar?")
-                escolha=input()
-                atividade = atividades[escolha - 1]
-                respostas= atividade.get_respostas()
-                for resposta in respostas:
-                  resposta.visualizar_respostas()
-              elif decisao == "2":
-                pass
-              
+              while True:
+                try:
+                  print("Deseja acessar as respostas de alguma atividade?")
+                  print("[1] Sim\n[2] Não")
+                  decisao = input()
+                  if decisao == "1":
+                    print("Qual atividade deseja acessar?")
+                    escolha=input()
+                    atividade = atividades[int(escolha) - 1]
+                    atividade.visualizar_respostas()
+                    print("\nAperte enter para voltar ao menu...")
+                    input()
+                  elif decisao == "2":
+                    pass
+                  else:
+                    raise AlternativaInvalida(decisao)
+                except AlternativaInvalida as e:
+                  print(e)
+                else:
+                  break
+                finally:
+                  sleep(2)
+                  system("clear")  
+                
             elif opcao == "4":
               processo2 = True
               processo = True
@@ -252,11 +250,13 @@ if user_1.get_nivelAcesso() == "limitado ao clube":
   user_1.visualizarClubes(clubesSistema)
   while True:
     try:
-      print("\nDigite a qual clube você deseja participar:")
+      print("\nDigite o número do clube que você deseja participar:")
       escolha = int(input())
-      if 1 <= escolha <= len(clubesSistema.values()):
-          clube_escolhido = clubesSistema.values()[escolha - 1]
+      if 1 <= escolha <= len(clubesSistema):
+          clube_escolhido = clubesSistema[escolha - 1]
           clube_escolhido.solicitar_entrada(user_1)
+          print("Aperte enter para prosseguir...")
+          input()
       else:
           raise AlternativaInvalida(escolha)
     except AlternativaInvalida as e:
@@ -284,7 +284,9 @@ if user_1.get_nivelAcesso() == "limitado ao clube":
               for i, atividade in enumerate(atividades, 1):
                 print(f"{i}°")
                 atividade.visualizar()
-                    
+                
+              print("\nAperte enter para voltar ao menu...")
+              input()
             elif decisao == "2":
               while True:
                 try:
@@ -304,7 +306,7 @@ if user_1.get_nivelAcesso() == "limitado ao clube":
                       print("Nenhuma resposta enviada")
                     
                   escolha=input()
-                  atividade = atividades[escolha - 1]
+                  atividade = atividades[int(escolha) - 1]
                 except IndexError:
                   print("Atividade nao encontrada")
                   print("selecione uma atividade existente")
@@ -352,7 +354,7 @@ if user_1.get_nivelAcesso() == "limitado ao clube":
           except AlternativaInvalida as e:
             print(e)
           else:
-            print("Atividade enviada com sucesso!")
+            print("Processando...")
             break
           finally:
             sleep(2)
