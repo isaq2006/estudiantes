@@ -20,13 +20,6 @@ class Usuario(Pessoa):
     def set_cadastro(self, bancoDeDados):
         # Chamada ao método herdado de Pessoa para procedimentos comuns de cadastro
         super().set_cadastro(bancoDeDados)
-        
-        print("Insira seu nome de Usuário:")
-        self.set_nome(input())  # Seta o nome do usuário
-        print("Insira seu email:")
-        self.set_email(input())  # Seta o email do usuário
-        print("Insira seu telefone:")
-        self.set_fone(input())   # Seta o telefone do usuário
         print("Quais são seus interesses? Insira-os:")
         self.__hobbies = input() # Seta os hobbies específicos do usuário
         self.set_nivelAcesso("área inicial")  # Define um nível de acesso inicial

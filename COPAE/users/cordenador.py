@@ -140,7 +140,8 @@ class Coordenador(Usuario):
         novaAtividade = Atividade()
         novaAtividade.set_titulo(input("Digite o título da atividade: "))
         novaAtividade.set_descricao(input("Digite a descrição da atividade: "))
-        novaAtividade.set_data_vencimento(input("Digite a data de vencimento da atividade (formato: YYYY-MM-DD): "))
+        data = input("Digite a data de vencimento da atividade (formato: YYYY-MM-DD): ")
+        novaAtividade.set_data_vencimento(data)
         novaAtividade.set_tipo_arquivo(input("Digite o tipo de arquivo aceito pela atividade: "))
         
         # Adiciona a nova atividade ao clube do coordenador estabelecendo a agregação

@@ -1,7 +1,7 @@
  #2°B Informatica Projeto COPAE
     #Grupo estudiantes:
     #Angélica Bechara
-    #Helinia Alexandra
+    #Helynia Alexandra
     #Isaque Simões
 
 def dadosPréexistentes():

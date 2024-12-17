@@ -1,4 +1,3 @@
-# Importação de bibliotecas necessárias
 from abc import ABC, abstractmethod  # ABC e abstractmethod são usados para criar classes abstratas e métodos abstratos
 from os import system  # Importação para manipular o terminal (limpeza de tela)
 
@@ -55,20 +54,25 @@ class Pessoa(ABC):
     def definir_senha(self):
         # Este método permite ao usuário definir uma senha e confirmá-la
         while True:
-            print("Digite uma senha:")
-            senha = input()
-            print("Confirme sua senha:")
-            senhaConfirm = input()
-            if senha == senhaConfirm:
-                system("clear")
-                print("Cadastro prosseguindo com sucesso")
-                self.__senha = senha  # Senha confirmada e salva
-                break
-            else:
-                system("claer")
-                print("Senhas não conferem")
-                print("Insira novamente sua senha")
-                continue
+            try:
+                print("Digite uma senha:")
+                senha = input()
+                print("Confirme sua senha:")
+                senhaConfirm = input()
+                if senha == senhaConfirm:
+                    system("clear")
+                    print("Cadastro prosseguindo com sucesso")
+                    self.__senha = senha  # Senha confirmada e salva
+                    break
+                else:
+                    system("clear")
+                    print("Senhas não conferem. Tente novamente.")
+                    continue
+            except Exception as e:
+                print(f"Ocorreu um erro ao definir a senha: {e}. Tente novamente.")
+            finally:
+                # O `finally` é sempre executado, independentemente de erro ou sucesso
+                print("Tentativa de definir senha concluída.")  # Mensagem informativa
 
     # Método para imprimir os dados da pessoa
     def get_imprimirDados(self):
@@ -91,39 +95,48 @@ class Pessoa(ABC):
             print(f"3 Email: {self.get_email()}")
             print(f"4 Telefone: {self.get_fone()}")
             while True:
-                # Usuário escolhe qual atributo deseja atualizar
-                decAtualize = int(input("Digite o número do atributo que deseja atualizar: "))
-                novo_valor = input(f"Digite o novo valor: ")
-                if decAtualize == 1:
-                    self.set_senha(novo_valor)  # Atualiza a senha
-                    break
-                elif decAtualize == 2:
-                    self.set_nome(novo_valor)  # Atualiza o nome
-                    break
-                elif decAtualize == 3:
-                    self.set_email(novo_valor)  # Atualiza o email
-                    break
-                elif decAtualize == 4:
-                    self.set_fone(novo_valor)  # Atualiza o telefone
-                    break
-                else:
-                    print("Opção inválida")
+                try:
+                    # Usuário escolhe qual atributo deseja atualizar
+                    decAtualize = int(input("Digite o número do atributo que deseja atualizar: "))
+                    if decAtualize == 1:
+                        self.set_senha(input("Digite a nova senha: "))  # Atualiza a senha
+                        break
+                    elif decAtualize == 2:
+                        self.set_nome(input("Digite o novo nome: "))  # Atualiza o nome
+                        break
+                    elif decAtualize == 3:
+                        self.set_email(input("Digite o novo email: "))  # Atualiza o email
+                        break
+                    elif decAtualize == 4:
+                        self.set_fone(input("Digite o novo telefone: "))  # Atualiza o telefone
+                        break
+                    else:
+                        print("Opção inválida. Tente novamente.")
+                        continue
+                except ValueError:
+                    print("Por favor, insira um número válido.")
                     continue
+                except Exception as e:
+                    print(f"Ocorreu um erro ao atualizar os dados: {e}. Tente novamente.")
+                finally:
+                    # O `finally` é sempre executado, mesmo com erro ou sucesso
+                    print("Tentativa de atualização concluída.")
+
         else:
-            print("Usuário não encontrado")
+            print("Usuário não encontrado.")
 
     # Método de cadastro de um novo usuário
     def set_cadastro(self, bancoDeDados):
         system("clear")
-        print("Insira seu ID:")
-        id = input()
-        
-        # Verifica se o ID já está cadastrado no banco de dados
-        while id in bancoDeDados:
-            print("ID já vinculado")
-            while True:
+        try:
+            print("Insira seu ID:")
+            id = input()
+
+            # Verifica se o ID já está cadastrado no banco de dados
+            while id in bancoDeDados:
+                print("ID já vinculado.")
                 print("Deseja fazer login?")
-                print("1 - Sim\n2 - Não\n")
+                print("1 - Sim\n2 - Não")
                 decisao1 = input()
                 system("clear")
                 if decisao1 == "1":
@@ -131,44 +144,62 @@ class Pessoa(ABC):
                     return self.get_login(bancoDeDados)
                 elif decisao1 == "2":
                     print("O ID já está vinculado a outra conta!")
-                    print("Acesse pelo login, ou insira um novo ID")
-                    print("Aperte ENTER")
-                    input()
+                    print("Acesse pelo login ou insira um novo ID.")
+                    input("Pressione ENTER para tentar novamente.")
                     return self.set_cadastro(bancoDeDados)
                 else:
-                    print("Alternativa inválida")
+                    print("Alternativa inválida. Tente novamente.")
                     continue
-        self.__id = id  # Define o ID após verificar que ele é único
-        print("Agora vamos definir sua senha, aperte ENTER para continuar")
-        input()
-        system('clear')
-        self.definir_senha()  # Chama o método para definir a senha
+
+            self.__id = id  # Define o ID após verificar que ele é único
+            print("Agora vamos definir sua senha, aperte ENTER para continuar")
+            input()
+            system('clear')
+            self.definir_senha()  # Chama o método para definir a senha
+            print("Insira seu nome de Usuário:")
+            self.set_nome(input())  # Seta o nome do usuário
+            print("Insira seu email:")
+            self.set_email(input())  # Seta o email do usuário
+            print("Insira seu telefone:")
+            self.set_fone(input())  # Seta o telefone do usuário
+
+        except Exception as e:
+            print(f"Ocorreu um erro durante o cadastro: {e}. Tente novamente.")
+        finally:
+            # O `finally` é sempre executado, independentemente de erro ou sucesso
+            print("Cadastro tentado. Finalizando processo de cadastro.")
 
     # Método de login de um usuário usando o ID e a senha
     @classmethod
     def get_login(cls, pessoas):
-        print("Insira seu ID (número identificador):")
-        id = input()
-        
-        # Verifica se o ID está presente no banco de dados
-        if id not in pessoas:
-            print("Conta não encontrada! Aperte ENTER para voltarmos ao menu:")
-            input()
-            system("clear")
-            return False
-        else:
-            pessoa = pessoas.get(id)
-            print("Insira sua senha:")
-            senha = input()
-            
-            # Verifica a senha do usuário
-            if pessoa.get_senha() != senha:
-                print("Senha incorreta! Aperte ENTER para tentar novamente:")
+        try:
+            print("Insira seu ID (número identificador):")
+            id = input()
+
+            # Verifica se o ID está presente no banco de dados
+            if id not in pessoas:
+                print("Conta não encontrada! Aperte ENTER para voltarmos ao menu:")
                 input()
                 system("clear")
-                return cls.get_login(pessoas)
+                return False
             else:
-                print("Login realizado com sucesso! Seja bem-vindo!")
-                print("Aperte ENTER para finalizar")
-                input()
-                return True  # Login bem-sucedido
+                pessoa = pessoas.get(id)
+                print("Insira sua senha:")
+                senha = input()
+
+                # Verifica a senha do usuário
+                if pessoa.get_senha() != senha:
+                    print("Senha incorreta! Aperte ENTER para tentar novamente.")
+                    input()
+                    system("clear")
+                    return cls.get_login(pessoas)
+                else:
+                    print("Login realizado com sucesso! Seja bem-vindo!")
+                    input("Aperte ENTER para finalizar.")
+                    return True  # Login bem-sucedido
+        except Exception as e:
+            print(f"Ocorreu um erro no login: {e}. Tente novamente.")
+            return False
+        finally:
+            # O `finally` é sempre executado, independentemente do que aconteceu no `try` ou `except`
+            print("Processo de login finalizado.")
