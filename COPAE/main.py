@@ -149,21 +149,34 @@ elif user.get_nivelAcesso() == "área inicial":
             sleep(2)
             system("clear")
 
-if user_1.get_nivelAcesso() == "ilimitado no clube":
-  novo_clube = user_1.criar_clube()
-  clubesSistema[novo_clube.get_id()] = novo_clube
-  
-  print("Aperte enter para prosseguir!")
-  input()
-  system("clear")
-  while True:
-    print("Bem-vindo(a) ao menu principal, o que deseja fazer?")
-    print("[1] Excluir clube")
-    print("[2] Adicionar membro ao clube")
-    print("[3] Remover membro do clube")
-    print("[4] Remover membro do clube")
+class exeptionUser(Exception):
+    def __init__(self, nome, nivel_acesso):
+        self.nome = nome
+        self.nivel_acesso = nivel_acesso
 
-    opcao = input("Digite a opção desejada: ")
+    def get_nivelAcesso(self):
+        return self.nivel_acesso
+
+# Menu principal
+print("Bem-vindo(a) ao menu principal, o que deseja fazer?")
+print("[1] Cadastrar novo clube")
+print("[2] Sair")
+
+try:
+    # Simulando o uso de user_1
+    if 'user_1' in globals():  # Verifica se 'user_1' existe
+        if user_1.get_nivelAcesso() == "ilimitado no clube":
+            print("Usuário com acesso ilimitado.")
+        elif user_1.get_nivelAcesso() == "limitado ao clube":
+            print("Usuário com acesso limitado.")
+    else:
+        # Lança uma exceção se user_1 não existir
+        raise NameError("Usuário 'user_1' não foi definido. Por favor, inicialize o usuário antes de acessá-lo.")
+
+except NameError as e:
+    print(f"Erro: {e}")
+except Exception as e:
+    print(f"Ocorreu um erro inesperado: {e}")
 
     if opcao == "1":
       system("clear")
@@ -178,20 +191,35 @@ if user_1.get_nivelAcesso() == "ilimitado no clube":
       system("clear")
       user_1.remover_membro()
     
-elif user_1.get_nivelAcesso() == "limitado ao clube":
-  if not clubesSistema:
-      print("Nenhum clube encontrado")
-      pass
-  else:
-      for i, clube in enumerate(clubesSistema.values(), 1):
-          print(f"{i}° clube : {clube.get_nome()}\nDescrição: {clube.get_descricao()}")
-      print("\nDigite a qual clube você deseja participar:")
-      escolha = int(input())
-      if 1 <= escolha <= len(clubesSistema.values()):
-          clube_escolhido = clubesSistema.values()[escolha - 1]
-      clube_escolhido.solicitar_entrada(user_1)
-      print("como sistema era muito grande não conseguimos finalizar, considerando que este possui umas 2 000 linhas pedimos que considere o que está em funcionamento.")
-      exit()
+class exeptionUser2(Exception):
+    def __init__(self, nome, nivel_acesso):
+        self.nome = nome
+        self.nivel_acesso = nivel_acesso
+
+    def get_nivelAcesso(self):
+        return self.nivel_acesso
+
+# Menu principal
+print("Bem-vindo(a) ao menu principal, o que deseja fazer?")
+print("[1] Cadastrar novo clube")
+print("[2] Sair")
+
+try:
+    # Simulando o uso de user_1
+    if 'user_1' in globals():  # Verifica se 'user_1' existe
+        if user_1.get_nivelAcesso() == "ilimitado no clube":
+            print("Usuário com acesso ilimitado.")
+        elif user_1.get_nivelAcesso() == "limitado ao clube":
+            print("Usuário com acesso limitado.")
+    else:
+        # Lança uma exceção se user_1 não existir
+        raise NameError("Usuário 'user_1' não foi definido. Por favor, inicialize o usuário antes de acessá-lo.")
+
+except NameError as e:
+    print(f"Erro: {e}")
+except Exception as e:
+    print(f"Ocorreu um erro inesperado: {e}")
+
 
 if user_1.get_nivelAcesso() == "ilimitado no clube":
     print("Bem-vindo(a) ao menu principal, o que deseja fazer?")
