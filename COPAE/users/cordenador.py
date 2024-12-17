@@ -63,7 +63,8 @@ class Coordenador(Usuario):
         system("clear")
         print("Bem-vindo à aba de criação!!!")
         novoClube = clube.Clube()
-        novoClube.set_cordenador = self  # Associa o coordenador ao clube criado
+        cordenador = self
+        novoClube.set_cordenador = cordenador # Associa o coordenador ao clube criado
         print("Digite o nome do clube:")
         novoClube.set_nome = input()  # Define o nome do clube
         print("Dê a descrição do mesmo:")
@@ -143,7 +144,7 @@ class Coordenador(Usuario):
         novaAtividade.set_tipo_arquivo(input("Digite o tipo de arquivo aceito pela atividade: "))
         
         # Adiciona a nova atividade ao clube do coordenador estabelecendo a agregação
-        self.__clubeCordenando.get_atividades().append(novaAtividade)
+        self.__clubeCordenando.set_ADatividades(novaAtividade)
         print(f"A atividade {novaAtividade.get_titulo()} foi criada com sucesso!")
 
     # Exclui uma atividade específica do clube gerenciado pelo coordenador
@@ -151,17 +152,19 @@ class Coordenador(Usuario):
         atividades = self.__clubeCordenando.get_atividades()
         if not atividades:
             print("Nenhuma atividade encontrada")
+        else:
+            # Exibe a lista de atividades para o coordenador escolher qual excluir
+            print("Atividades:")
+            for i, atividade in enumerate(atividades, 1):
+                print(f"{i}°. {atividade.get_titulo()}")
             
-        # Exibe a lista de atividades para o coordenador escolher qual excluir
-        print("Atividades:")
-        for i, atividade in enumerate(atividades, 1):
-            print(f"{i}. {atividade.get_titulo()}")
-        
-        escolha = int(input("Digite o número da atividade que deseja excluir: "))
-        if 1 <= escolha <= len(atividades):
-            atividade_escolhida = atividades[escolha - 1]
-            self.__clubeCordenando.get_atividades().remove(atividade_escolhida)  # Remove a atividade do clube
-            print(f"A atividade {atividade_escolhida.get_titulo()} foi excluída com sucesso!")
+            escolha = int(input("Digite o número da atividade que deseja excluir: "))
+            if 1 <= escolha <= len(atividades):
+                atividade_escolhida = atividades[escolha - 1]
+                self.__clubeCordenando.set_EXatividades(atividade_escolhida)  # Remove a atividade do clube
+                print(f"A atividade {atividade_escolhida.get_titulo()} foi excluída com sucesso!")
+            else:
+                print("Opção inválida. Por favor, escolha uma opção válida.")
 
     # Retorna o clube que o coordenador está gerenciando
     def get_clubeCordenando(self):

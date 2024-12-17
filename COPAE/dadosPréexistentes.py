@@ -1,4 +1,4 @@
-    #2°B Informatica Projeto COPAE
+ #2°B Informatica Projeto COPAE
     #Grupo estudiantes:
     #Angélica Bechara
     #Helinia Alexandra
@@ -16,7 +16,7 @@ def dadosPréexistentes():
     from os import system
 
     bancoDeDados = {}
-    clubesSistema = {}
+    clubesSistema = []
 
     ################### PREENCHIMENTO DO BANCO DE DADOS PARA EXEMPLIFICAR O FUNCIONAMENTO DO CÓDIGO #################
     #Observação: atesto que usamos chatgpt para gerar varias situações, para facilitar o procedimento, afinal são mais de 500 linhas.
@@ -63,6 +63,11 @@ def dadosPréexistentes():
     usuario4.set_nivelAcesso("área inicial")
     bancoDeDados[usuario4.get_id()] = usuario4
 
+    clube1 = Clube()
+    clube1.set_nome("COPAE")
+    clube1.set_descricao("Clube de Olimpiadas de Programação de Algoritmos e Estrutura de Dados")
+    
+    
     Coordenador1 = Coordenador()
     Coordenador1.set_id("8573")
     Coordenador1.set_nome("Helinia")
@@ -72,13 +77,9 @@ def dadosPréexistentes():
     Coordenador1.set_conhecimentoTecnico("programação")
     Coordenador1.set_experiencia("5 anos")
     Coordenador1.set_nivelAcesso("ilimitado no clube")
+    Coordenador1.set_clube(clube1)
     bancoDeDados[Coordenador1.get_id()] = Coordenador1
 
-    clube1 = Clube()
-    clube1.set_nome("COPAE")
-    clube1.set_descricao("Clube de Olimpiadas de Programação de Algoritmos e Estrutura de Dados")
-    clubesSistema[clube1.get_id()] = clube1
-    Coordenador1.set_clube(clube1)
     clube1.set_cordenador(Coordenador1)
 
     membro1 = Membro()
@@ -122,56 +123,56 @@ def dadosPréexistentes():
     atividade1.set_descricao("Jogos de Programação de Algoritmos e Estrutura de Dados") 
     atividade1.set_data_vencimento("23/12/2024")
     atividade1.set_tipo_arquivo("PDF")
-    clube1.set_atividades(atividade1)
+    clube1.set_ADatividades(atividade1)
 
     arquivo1 = Arquivo()
     arquivo1.set_titulo("Algoritmos para Jogo de Tabuleiro")
     arquivo1.set_autores(membro1.get_nome())
     arquivo1.set_id_autor(membro1.get_id())
     arquivo1.set_conteudo("Desenvolvimento de um jogo de tabuleiro utilizando algoritmos em Python para resolução de desafios.")
+    atividade1.set_ADrespostas(arquivo1)
 
     arquivo2 = Arquivo()
     arquivo2.set_titulo("Interface Gráfica para Jogo de Algoritmos")
     arquivo2.set_autores(membro2.get_nome())
     arquivo2.set_id_autor(membro2.get_id())
     arquivo2.set_conteudo("Projeto de interface gráfica usando princípios de design gráfico para um jogo de algoritmos.")
+    atividade1.set_ADrespostas(arquivo2)
 
     arquivo3 = Arquivo()
     arquivo3.set_titulo("Análise de Algoritmos em Jogos de Programação")
     arquivo3.set_autores(membro3.get_nome())
     arquivo3.set_id_autor(membro3.get_id())
     arquivo3.set_conteudo("Estudo e análise dos algoritmos usados em jogos de programação, focando em estrutura de dados.")
-
-    arquivos1=[arquivo1, arquivo2, arquivo3]
-    atividade1.set_respostas(arquivos1)
+    atividade1.set_ADrespostas(arquivo3)
 
     atividade2 = Atividade()
     atividade2.set_titulo("Workshop de Python")
     atividade2.set_descricao("Workshop sobre Python para iniciantes, abordando fundamentos da linguagem")
     atividade2.set_data_vencimento("15/11/2024")
     atividade2.set_tipo_arquivo("PPT")
-    clube1.set_atividades(atividade2)
+    clube1.set_ADatividades(atividade2)
 
     arquivo1_workshop = Arquivo()
     arquivo1_workshop.set_titulo("Introdução a Variáveis e Tipos de Dados em Python")
     arquivo1_workshop.set_autores(membro1.get_nome())
     arquivo1_workshop.set_id_autor(membro1.get_id())
     arquivo1_workshop.set_conteudo("Apresentação sobre conceitos básicos de variáveis, tipos de dados e operadores em Python.")
+    atividade2.set_ADrespostas(arquivo1_workshop)
 
     arquivo2_workshop = Arquivo()
     arquivo2_workshop.set_titulo("Estruturas Condicionais e Loops em Python")
     arquivo2_workshop.set_autores(membro2.get_nome())
     arquivo2_workshop.set_id_autor(membro2.get_id())
     arquivo2_workshop.set_conteudo("Slides sobre estruturas condicionais e loops, incluindo exemplos práticos para iniciantes.")
+    atividade2.set_ADrespostas(arquivo2_workshop)
 
     arquivo3_workshop = Arquivo()
     arquivo3_workshop.set_titulo("Funções e Modularização em Python")
     arquivo3_workshop.set_autores(membro3.get_nome())
     arquivo3_workshop.set_id_autor(membro3.get_id())
     arquivo3_workshop.set_conteudo("Apresentação abordando a criação de funções e o conceito de modularização no desenvolvimento em Python.")
-
-    arquivos2=[arquivo1_workshop, arquivo2_workshop, arquivo3_workshop]
-    atividade2.set_respostas(arquivos2)
+    atividade2.set_ADrespostas(arquivo3_workshop)
 
 
     atividade3 = Atividade()
@@ -179,31 +180,29 @@ def dadosPréexistentes():
     atividade3.set_descricao("Desafio para criação de modelos de IA aplicados a problemas do mundo real")
     atividade3.set_data_vencimento("10/01/2025")
     atividade3.set_tipo_arquivo("DOCX")
-    clube1.set_atividades(atividade3)
+    clube1.set_ADatividades(atividade3)
 
     arquivo1_hackathon = Arquivo()
     arquivo1_hackathon.set_titulo("Modelo de Regressão para Previsão de Valores")
     arquivo1_hackathon.set_autores(membro1.get_nome())
     arquivo1_hackathon.set_id_autor(membro1.get_id())
     arquivo1_hackathon.set_conteudo("Modelo de IA baseado em regressão linear para previsão de valores numéricos aplicados a cenários do mundo real.")
+    atividade3.set_ADrespostas(arquivo1_hackathon)
 
     arquivo2_hackathon = Arquivo()
     arquivo2_hackathon.set_titulo("Análise de Imagens com Redes Neurais Convolucionais")
     arquivo2_hackathon.set_autores(membro2.get_nome())
     arquivo2_hackathon.set_id_autor(membro2.get_id())
     arquivo2_hackathon.set_conteudo("Modelo de IA usando redes neurais convolucionais para análise e classificação de imagens.")
+    atividade3.set_ADrespostas(arquivo2_hackathon)
 
     arquivo3_hackathon = Arquivo()
     arquivo3_hackathon.set_titulo("Chatbot com Processamento de Linguagem Natural")
     arquivo3_hackathon.set_autores(membro3.get_nome())
     arquivo3_hackathon.set_id_autor(membro3.get_id())
     arquivo3_hackathon.set_conteudo("Desenvolvimento de um chatbot utilizando técnicas de processamento de linguagem natural para responder perguntas.")
+    atividade3.set_ADrespostas(arquivo3_hackathon)
 
-    arquivos3=[arquivo1_hackathon, arquivo2_hackathon, arquivo3_hackathon]
-    atividade3.set_respostas(arquivos3)
-
-    atividades1=[atividade1, atividade2, atividade3]
-    clube1.set_atividades(atividades1)
 
     chatClube1 =  clube1.get_chat()
 
@@ -248,6 +247,13 @@ def dadosPréexistentes():
     mensagem7.set_autores(Coordenador1.get_nome())
     mensagem7.set_conteudo("Isso mesmo, Maria! O objetivo aqui é nos apoiarmos e trocarmos conhecimentos. Qualquer dúvida, vamos discutindo no chat. Conto com todos!")
     chatClube1.send_mensage(mensagem7)
+    
+    clubesSistema.append(clube1)
+
+
+    clube2 = Clube()
+    clube2.set_nome("Clube de Literatura")
+    clube2.set_descricao("Clube de Literatura e Escrita Criativa para apaixonados por leitura e desenvolvimento literário.")
 
     Coordenador2 = Coordenador()
     Coordenador2.set_id("2021")
@@ -258,13 +264,9 @@ def dadosPréexistentes():
     Coordenador2.set_conhecimentoTecnico("literatura clássica e escrita criativa")
     Coordenador2.set_experiencia("10 anos")
     Coordenador2.set_nivelAcesso("ilimitado no clube")
+    Coordenador2.set_clube(clube2)
     bancoDeDados[Coordenador2.get_id()] = Coordenador2
 
-    clube2 = Clube()
-    clube2.set_nome("Clube de Literatura")
-    clube2.set_descricao("Clube de Literatura e Escrita Criativa para apaixonados por leitura e desenvolvimento literário.")
-    clubesSistema[clube2.get_id()] = clube2
-    Coordenador2.set_clube(clube2)
     clube2.set_cordenador(Coordenador2)
 
     membro4 = Membro()
@@ -308,26 +310,28 @@ def dadosPréexistentes():
     atividade1_lit.set_descricao("Desenvolvimento de personagens profundos e multidimensionais.")
     atividade1_lit.set_data_vencimento("23/11/2024")
     atividade1_lit.set_tipo_arquivo("DOCX")
+    clube2.set_ADatividades(atividade1_lit)
 
     arquivo1_lit = Arquivo()
     arquivo1_lit.set_titulo("A Jornada do Herói no Gênero Fantasia")
     arquivo1_lit.set_autores(membro4.get_nome())
     arquivo1_lit.set_id_autor(membro4.get_id())
     arquivo1_lit.set_conteudo("Desenvolvimento de um personagem de fantasia com base na Jornada do Herói.")
+    atividade1_lit.set_ADrespostas(arquivo1_lit)
 
     arquivo2_lit = Arquivo()
     arquivo2_lit.set_titulo("Personagens como Reflexo da Realidade Social")
     arquivo2_lit.set_autores(membro5.get_nome())
     arquivo2_lit.set_id_autor(membro5.get_id())
     arquivo2_lit.set_conteudo("Análise sobre como personagens literários refletem a sociedade.")
+    atividade1_lit.set_ADrespostas(arquivo2_lit)
 
     arquivo3_lit = Arquivo()
     arquivo3_lit.set_titulo("O Papel dos Andróides em Narrativas Futuristas")
     arquivo3_lit.set_autores(membro6.get_nome())
     arquivo3_lit.set_id_autor(membro6.get_id())
     arquivo3_lit.set_conteudo("Exploração dos papéis dos andróides em histórias de ficção científica.")
-
-    atividade1_lit.set_respostas([arquivo1_lit, arquivo2_lit, arquivo3_lit])
+    atividade1_lit.set_ADrespostas(arquivo3_lit)
 
     # Segunda atividade: Oficina de Poesia e Versificação
     atividade2_lit = Atividade()
@@ -335,26 +339,28 @@ def dadosPréexistentes():
     atividade2_lit.set_descricao("Exercícios de criação poética com foco em rima e métrica.")
     atividade2_lit.set_data_vencimento("05/12/2024")
     atividade2_lit.set_tipo_arquivo("DOCX")
+    clube2.set_ADatividades(atividade2_lit)
 
     arquivo1_poesia = Arquivo()
     arquivo1_poesia.set_titulo("Poema sobre a Natureza")
     arquivo1_poesia.set_autores(membro5.get_nome())
     arquivo1_poesia.set_id_autor(membro5.get_id())
     arquivo1_poesia.set_conteudo("Poema explorando metáforas e a relação do ser humano com a natureza.")
+    atividade2_lit.set_ADrespostas(arquivo1_poesia)
 
     arquivo2_poesia = Arquivo()
     arquivo2_poesia.set_titulo("Soneto sobre o Tempo")
     arquivo2_poesia.set_autores(membro4.get_nome())
     arquivo2_poesia.set_id_autor(membro4.get_id())
     arquivo2_poesia.set_conteudo("Soneto em 14 versos refletindo sobre a passagem do tempo e a efemeridade da vida.")
+    atividade2_lit.set_ADrespostas(arquivo2_poesia)
 
     arquivo3_poesia = Arquivo()
     arquivo3_poesia.set_titulo("Haiku sobre as Estações")
     arquivo3_poesia.set_autores(membro6.get_nome())
     arquivo3_poesia.set_id_autor(membro6.get_id())
     arquivo3_poesia.set_conteudo("Haiku explorando a beleza e simplicidade das mudanças sazonais.")
-
-    atividade2_lit.set_respostas([arquivo1_poesia, arquivo2_poesia, arquivo3_poesia])
+    atividade2_lit.set_ADrespostas(arquivo3_poesia)
 
     # Terceira atividade: Contos e Narrativas Curtas
     atividade3_lit = Atividade()
@@ -362,30 +368,28 @@ def dadosPréexistentes():
     atividade3_lit.set_descricao("Desenvolvimento de contos curtos, com foco em estrutura e narrativa.")
     atividade3_lit.set_data_vencimento("20/12/2024")
     atividade3_lit.set_tipo_arquivo("PDF")
+    clube2.set_ADatividades(atividade3_lit)
 
     arquivo1_conto = Arquivo()
     arquivo1_conto.set_titulo("A Última Viagem")
     arquivo1_conto.set_autores(membro4.get_nome())
     arquivo1_conto.set_id_autor(membro4.get_id())
     arquivo1_conto.set_conteudo("Conto sobre uma jornada mística que desafia a percepção do tempo.")
+    atividade3_lit.set_ADrespostas(arquivo1_conto)
 
     arquivo2_conto = Arquivo()
     arquivo2_conto.set_titulo("O Encontro Inesperado")
     arquivo2_conto.set_autores(membro6.get_nome())
     arquivo2_conto.set_id_autor(membro6.get_id())
     arquivo2_conto.set_conteudo("Narrativa que explora os temas de coincidência e destino em um café movimentado.")
+    atividade3_lit.set_ADrespostas(arquivo2_conto)
 
     arquivo3_conto = Arquivo()
     arquivo3_conto.set_titulo("O Eco das Montanhas")
     arquivo3_conto.set_autores(membro5.get_nome())
     arquivo3_conto.set_id_autor(membro5.get_id())
     arquivo3_conto.set_conteudo("História que explora o isolamento e a introspecção em uma paisagem montanhosa.")
-
-    atividade3_lit.set_respostas([arquivo1_conto, arquivo2_conto, arquivo3_conto])
-
-    # Associando as atividades ao clube
-    atividades_lit = [atividade1_lit, atividade2_lit, atividade3_lit]
-    clube2.set_atividades(atividades_lit)
+    atividade3_lit.set_ADrespostas(arquivo3_conto)
 
     chatClube2 = clube2.get_chat()
 
@@ -409,6 +413,13 @@ def dadosPréexistentes():
     mensagem4_lit.set_conteudo("Concordo com o Miguel! Uma oficina de sentimentos e personalidades seria incrível. Podemos começar com um personagem em comum?")
     chatClube2.send_mensage(mensagem4_lit)
 
+    clubesSistema.append(clube2)
+
+    clube3 = Clube()
+    clube3.set_nome("Clube de Sustentabilidade")
+    clube3.set_descricao("Clube dedicado a explorar práticas sustentáveis e ciência ambiental.")
+    
+
     Coordenador3 = Coordenador()
     Coordenador3.set_id("3031")
     Coordenador3.set_nome("Carolina")
@@ -418,14 +429,11 @@ def dadosPréexistentes():
     Coordenador3.set_conhecimentoTecnico("ecologia e sustentabilidade")
     Coordenador3.set_experiencia("8 anos")
     Coordenador3.set_nivelAcesso("ilimitado no clube")
+    Coordenador3.set_clube(clube3)
     bancoDeDados[Coordenador3.get_id()] = Coordenador3
 
-    clube3 = Clube()
-    clube3.set_nome("Clube de Sustentabilidade")
-    clube3.set_descricao("Clube dedicado a explorar práticas sustentáveis e ciência ambiental.")
-    clubesSistema[clube3.get_id()] = clube3
-    Coordenador3.set_clube(clube3)
     clube3.set_cordenador(Coordenador3)
+
 
     membro7 = Membro()
     membro7.set_id("3033")
@@ -468,26 +476,28 @@ def dadosPréexistentes():
     atividade1_sust.set_descricao("Desenvolvimento de um sistema de reciclagem comunitário")
     atividade1_sust.set_data_vencimento("01/12/2024")
     atividade1_sust.set_tipo_arquivo("PDF")
+    clube3.set_ADatividades(atividade1_sust)
 
     arquivo1_sust = Arquivo()
     arquivo1_sust.set_titulo("Reciclagem e Compostagem Doméstica")
     arquivo1_sust.set_autores(membro7.get_nome())
     arquivo1_sust.set_id_autor(membro7.get_id())
     arquivo1_sust.set_conteudo("Projeto de reciclagem e compostagem para pequenos espaços urbanos.")
-
+    atividade1_sust.set_ADrespostas(arquivo1_sust)
+    
     arquivo2_sust = Arquivo()
     arquivo2_sust.set_titulo("Engajamento Comunitário para Coleta Seletiva")
     arquivo2_sust.set_autores(membro8.get_nome())
     arquivo2_sust.set_id_autor(membro8.get_id())
     arquivo2_sust.set_conteudo("Plano de comunicação para envolver a comunidade na coleta seletiva.")
+    atividade1_sust.set_ADrespostas(arquivo2_sust)
 
     arquivo3_sust = Arquivo()
     arquivo3_sust.set_titulo("Redução de Descartes Plásticos nas Praias")
     arquivo3_sust.set_autores(membro9.get_nome())
     arquivo3_sust.set_id_autor(membro9.get_id())
     arquivo3_sust.set_conteudo("Métodos para minimizar o descarte de plástico nas áreas costeiras.")
-
-    atividade1_sust.set_respostas([arquivo1_sust, arquivo2_sust, arquivo3_sust])
+    atividade1_sust.set_ADrespostas(arquivo3_sust)
 
     # Segunda atividade: Projeto de Energias Renováveis
     atividade2_sust = Atividade()
@@ -495,26 +505,28 @@ def dadosPréexistentes():
     atividade2_sust.set_descricao("Estudo e implementação de soluções de energia renovável em pequena escala.")
     atividade2_sust.set_data_vencimento("15/12/2024")
     atividade2_sust.set_tipo_arquivo("PPT")
+    clube3.set_ADatividades(atividade2_sust)
 
     arquivo1_energia = Arquivo()
     arquivo1_energia.set_titulo("Painéis Solares em Comunidades")
     arquivo1_energia.set_autores(membro7.get_nome())
     arquivo1_energia.set_id_autor(membro7.get_id())
     arquivo1_energia.set_conteudo("Análise de viabilidade e instalação de painéis solares em áreas urbanas.")
+    atividade2_sust.set_ADrespostas(arquivo1_energia)
 
     arquivo2_energia = Arquivo()
     arquivo2_energia.set_titulo("Microturbinas para Energia Eólica")
     arquivo2_energia.set_autores(membro8.get_nome())
     arquivo2_energia.set_id_autor(membro8.get_id())
     arquivo2_energia.set_conteudo("Projeto de instalação de microturbinas em áreas com baixa velocidade de vento.")
+    atividade2_sust.set_ADrespostas(arquivo2_energia)
 
     arquivo3_energia = Arquivo()
     arquivo3_energia.set_titulo("Sistemas de Biomassa Doméstica")
     arquivo3_energia.set_autores(membro9.get_nome())
     arquivo3_energia.set_id_autor(membro9.get_id())
     arquivo3_energia.set_conteudo("Uso de resíduos orgânicos para produção de biogás em comunidades rurais.")
-
-    atividade2_sust.set_respostas([arquivo1_energia, arquivo2_energia, arquivo3_energia])
+    atividade2_sust.set_ADrespostas(arquivo3_energia)
 
     # Terceira atividade: Redução de Pegada de Carbono
     atividade3_sust = Atividade()
@@ -522,30 +534,28 @@ def dadosPréexistentes():
     atividade3_sust.set_descricao("Práticas para reduzir a pegada de carbono nas atividades diárias.")
     atividade3_sust.set_data_vencimento("30/12/2024")
     atividade3_sust.set_tipo_arquivo("PDF")
+    clube3.set_ADatividades(atividade3_sust)
 
     arquivo1_carbono = Arquivo()
     arquivo1_carbono.set_titulo("Práticas para Residências Sustentáveis")
     arquivo1_carbono.set_autores(membro8.get_nome())
     arquivo1_carbono.set_id_autor(membro8.get_id())
     arquivo1_carbono.set_conteudo("Sugestões para adaptação de hábitos domésticos visando a redução de emissão de carbono.")
+    atividade3_sust.set_ADrespostas(arquivo1_carbono)
 
     arquivo2_carbono = Arquivo()
     arquivo2_carbono.set_titulo("Transporte Verde e Emissão Zero")
     arquivo2_carbono.set_autores(membro9.get_nome())
     arquivo2_carbono.set_id_autor(membro9.get_id())
     arquivo2_carbono.set_conteudo("Estudo de modos de transporte com baixo impacto ambiental e emissão de gases poluentes.")
+    atividade3_sust.set_ADrespostas(arquivo2_carbono)
 
     arquivo3_carbono = Arquivo()
     arquivo3_carbono.set_titulo("Alimentação Saudável e Sustentável")
     arquivo3_carbono.set_autores(membro7.get_nome())
     arquivo3_carbono.set_id_autor(membro7.get_id())
     arquivo3_carbono.set_conteudo("Propostas de mudanças alimentares para reduzir o impacto ambiental e melhorar a saúde.")
-
-    atividade3_sust.set_respostas([arquivo1_carbono, arquivo2_carbono, arquivo3_carbono])
-
-    # Associando as atividades ao clube
-    atividades_sust = [atividade1_sust, atividade2_sust, atividade3_sust]
-    clube3.set_atividades(atividades_sust)
+    atividade3_sust.set_ADrespostas(arquivo3_carbono)
 
     chatClube3 = clube3.get_chat()
 
@@ -568,5 +578,7 @@ def dadosPréexistentes():
     mensagem4_sust.set_autores(membro9.get_nome())
     mensagem4_sust.set_conteudo("Oi, todos! Podemos explorar como a ciência dos oceanos e a preservação ambiental estão conectadas. Posso contribuir com dados sobre impacto costeiro.")
     chatClube3.send_mensage(mensagem4_sust)
+    
+    clubesSistema.append(clube3)
     
     return bancoDeDados, clubesSistema

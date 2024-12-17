@@ -24,24 +24,6 @@ class Arquivo:
     def cancelar_envio(self):
         del self  # Exclui o objeto de arquivo
 
-    # Método para editar o arquivo; verifica se o usuário é o autor antes de permitir a edição
-    def editar_arquivo(self, id_autor):
-        """Edita o envio do arquivo"""
-        self.__id_autor = id_autor  # Define o ID do autor
-        print("Você deseja editar qual dado do seu envio?")
-        print("[1] Título")
-        print("[2] Autores")
-        print("[3] Conteúdo")
-
-        choice = input()  # Recebe a escolha do usuário
-
-        # Verifica a escolha e solicita a nova informação a ser editada
-        if choice == "1":
-            self.__titulo = input("Digite o novo título do arquivo: ")
-        elif choice == "2":
-            self.__autores = input("Digite os novos autores do arquivo: ")
-        elif choice == "3":
-            self.__conteudo = input("Digite o novo conteúdo do arquivo: ")
 
     # Outro método de edição que verifica o ID do autor antes de permitir a edição
     def editar_envio(self, id_autor):
