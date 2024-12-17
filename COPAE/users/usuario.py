@@ -40,12 +40,12 @@ class Usuario(Pessoa):
     # Associação com a classe Mensagem para enviar mensagens
     def enviarMensagem(self):
         # Importação da classe Mensagem para criar uma mensagem
-        from ..mensagens import Mensagem
+        from mensagens import Mensagem
         print("Digite seu texto abaixo")
-        
+        texto = input()
         # Criação de uma instância de Mensagem, associando o remetente (nome do usuário) ao conteúdo
-        mensagem = Mensagem(self.get_nome(), input())
-        from ..notificacao import Notificacao
+        mensagem = Mensagem(self.get_nome(), texto)
+        from notificacao import Notificacao
         # Criação de uma instância de Notificação associando a mensagem e ao conteúdo
         notificar = Notificacao()
         notificar.set_notificacao(mensagem.get_conteudo())

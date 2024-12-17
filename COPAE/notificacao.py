@@ -5,7 +5,7 @@ class Notificacao:
         # A inicialização da notificação recebe opcionalmente um objeto do tipo Mensagem.
         # Se uma mensagem é fornecida, extrai-se seu conteúdo para a notificação.
         # A data de envio da notificação é registrada com o momento atual.
-        self.__conteudo = mensagem.get_conteudo() if mensagem else None
+        self.__conteudo = mensagem
         self.__data_envio = datetime.now()
 
     def visualizar(self):
