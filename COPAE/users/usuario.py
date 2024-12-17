@@ -1,6 +1,5 @@
 # Importação da classe base Pessoa
 from users.pessoa import Pessoa
-from main import AlternativaInvalida
 
 # Classe Usuario herda de Pessoa (Herança)
 class Usuario(Pessoa):

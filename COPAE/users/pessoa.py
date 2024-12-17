@@ -1,12 +1,20 @@
 # Importação de bibliotecas necessárias
 from abc import ABC, abstractmethod  # ABC e abstractmethod são usados para criar classes abstratas e métodos abstratos
 from os import system  # Importação para manipular o terminal (limpeza de tela)
+import re
+from time import sleep
 
 class TelefoneInvalidoException(Exception):
     """Exceção para quando o telefone ultrapassar o número permitido de dígitos."""
     def __init__(self, mensagem="Número de telefone inválido. Ele não pode ultrapassar 11 dígitos."):
         self.mensagem = mensagem
         super().__init__(self.mensagem)
+class EmailInvalidoException(Exception):
+    """Exceção para quando o e-mail não for válido."""
+    def __init__(self, mensagem="E-mail inválido. Insira um e-mail no formato correto (ex: nome@dominio.com)."):
+        self.mensagem = mensagem
+        super().__init__(self.mensagem)
+
 # Definição da classe abstrata Pessoa
 class Pessoa(ABC):
     def __init__(self, id="", senha="", nome="", email="", fone="", nivelAcesso=""):
@@ -60,6 +68,13 @@ class Pessoa(ABC):
         """Valida se o telefone tem até 11 dígitos."""
         if len(telefone) > 11 or not telefone.isdigit():
             raise TelefoneInvalidoException()
+        
+    def validar_email(self, email):
+        """Valida o formato do e-mail usando regex."""
+        padrao_email = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+        if not re.match(padrao_email, email):
+            raise EmailInvalidoException()
+
 
     # Método para definir a senha do usuário
     def definir_senha(self):
@@ -155,10 +170,22 @@ class Pessoa(ABC):
         self.definir_senha()  # Chama o método para definir a senha
         print("Insira seu nome de Usuário:")
         self.set_nome(input())  # Seta o nome do usuário
-        print("Insira seu email:")
-        self.set_email(input())  # Seta o email do usuário
-        print("Insira seu telefone:")
-        self.set_fone(input())   # Seta o telefone do usuário
+        # Validação do e-mail
+        while True:
+            print("Insira seu email:")
+            email = input()
+            try:
+                self.validar_email(email)  # Valida o e-mail
+                self.set_email(email)
+            except EmailInvalidoException as e:
+                print(f"Erro: {e}")
+                continue
+            else:
+                print("Email cadastrado com sucesso!")
+                break
+            finally:
+                sleep(3)
+                system("clear")
         # Adicionando a validação de telefone
         while True:
             print("Insira seu telefone (máximo 11 dígitos):")
@@ -173,6 +200,7 @@ class Pessoa(ABC):
                 print("Telefone cadastrado com sucesso!")
                 break
             finally:
+                sleep(3)
                 system("clear")
 
     # Método de login de um usuário usando o ID e a senha
