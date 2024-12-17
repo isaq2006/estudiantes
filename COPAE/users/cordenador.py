@@ -57,23 +57,45 @@ class Coordenador(Usuario):
         super().aderirComunidade(clubes)  # Chama o método da classe pai para aderir a um clube
 
     # Cria um novo clube, que será gerenciado pelo próprio coordenador
-    def criar_clube(self):
-        # Lógica para criar um novo clube
-        import clube
-        system("clear")
-        print("Bem-vindo à aba de criação!!!")
-        novoClube = clube.Clube()
-        cordenador = self
-        novoClube.set_cordenador = cordenador # Associa o coordenador ao clube criado
-        print("Digite o nome do clube:")
-        novoClube.set_nome = input()  # Define o nome do clube
-        print("Dê a descrição do mesmo:")
-        novoClube.set_descricao = input()  # Define a descrição do clube
-        system("clear")
-        print("Clube criado com sucesso!!!")
-        self.__clubeCordenando = novoClube  # Atribui o novo clube ao coordenador
+    # Cria um novo clube, que será gerenciado pelo próprio coordenador
+def criar_clube(self):
+    # Lógica para criar um novo clube
+    import clube
+    system("clear")
+    print("Bem-vindo à aba de criação!!!")
+    novoClube = clube.Clube()
+    cordenador = self
+    novoClube.set_cordenador(cordenador)  # Associa o coordenador ao clube criado
+    
+    # Solicita o nome do clube
+    print("Digite o nome do clube:")
+    novoClube.set_nome(input())  # Define o nome do clube
+    
+    # Verifica a descrição do clube
+    while True:
+        try:
+            print("Dê a descrição do clube (máximo de 200 caracteres):")
+            descricao = input()
 
-        return novoClube
+            # Verifica se a descrição não ultrapassa o limite de 200 caracteres
+            if len(descricao) > 200:
+                raise ValueError("A descrição do clube deve ter no máximo 200 caracteres.")
+            
+            novoClube.set_descricao(descricao)  # Define a descrição do clube
+            break  # Se a descrição for válida, sai do loop
+
+        except ValueError as e:
+            print(f"Erro: {e}")  # Exibe o erro para o usuário
+
+        finally:
+            # O bloco finally garante que esta mensagem será sempre mostrada, independentemente do erro ou não
+            print("Tentativa de inserir descrição concluída.")
+    
+    system("clear")
+    print("Clube criado com sucesso!!!")
+    self.__clubeCordenando = novoClube  # Atribui o novo clube ao coordenador
+
+    return novoClube
 
     # Exclui o clube que o coordenador está gerenciando
     def excluir_clube(self, clubes):
@@ -140,8 +162,7 @@ class Coordenador(Usuario):
         novaAtividade = Atividade()
         novaAtividade.set_titulo(input("Digite o título da atividade: "))
         novaAtividade.set_descricao(input("Digite a descrição da atividade: "))
-        data = input("Digite a data de vencimento da atividade (formato: YYYY-MM-DD): ")
-        novaAtividade.set_data_vencimento(data)
+        novaAtividade.set_data_vencimento(input("Digite a data de vencimento da atividade (formato: YYYY-MM-DD): "))
         novaAtividade.set_tipo_arquivo(input("Digite o tipo de arquivo aceito pela atividade: "))
         
         # Adiciona a nova atividade ao clube do coordenador estabelecendo a agregação
