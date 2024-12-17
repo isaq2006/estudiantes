@@ -21,7 +21,8 @@ from time import sleep
 class AlternativaInvalida(Exception):
     #Exceção para alternativas inválidas.
     def __init__(self, alternativa):
-        super().__init__(f"Alternativa '{alternativa}' escolhida é inválida!")
+        super().__init__(f"Alternativa '{alternativa}' escolhida é inválida!") 
+        
         
 bancoDeDados, clubesSistema = dadosPréexistentes()
 
@@ -234,7 +235,7 @@ while True:
                         print("Qual atividade deseja acessar?")
                         escolha=input()
                         atividade = atividades[int(escolha) - 1]
-                        atividade.visualizar_respostas()
+                        atividade.visualisar_respostas()
                         print("\nAperte enter para voltar ao menu...")
                         input()
                       elif decisao == "2":

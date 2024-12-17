@@ -2,6 +2,11 @@
 from abc import ABC, abstractmethod  # ABC e abstractmethod são usados para criar classes abstratas e métodos abstratos
 from os import system  # Importação para manipular o terminal (limpeza de tela)
 
+class TelefoneInvalidoException(Exception):
+    """Exceção para quando o telefone ultrapassar o número permitido de dígitos."""
+    def __init__(self, mensagem="Número de telefone inválido. Ele não pode ultrapassar 11 dígitos."):
+        self.mensagem = mensagem
+        super().__init__(self.mensagem)
 # Definição da classe abstrata Pessoa
 class Pessoa(ABC):
     def __init__(self, id="", senha="", nome="", email="", fone="", nivelAcesso=""):
@@ -50,6 +55,11 @@ class Pessoa(ABC):
 
     def set_nivelAcesso(self, nivelAcesso):
         self.__nivelAcesso = nivelAcesso
+        
+    def validar_telefone(self, telefone):
+        """Valida se o telefone tem até 11 dígitos."""
+        if len(telefone) > 11 or not telefone.isdigit():
+            raise TelefoneInvalidoException()
 
     # Método para definir a senha do usuário
     def definir_senha(self):
@@ -143,6 +153,27 @@ class Pessoa(ABC):
         input()
         system('clear')
         self.definir_senha()  # Chama o método para definir a senha
+        print("Insira seu nome de Usuário:")
+        self.set_nome(input())  # Seta o nome do usuário
+        print("Insira seu email:")
+        self.set_email(input())  # Seta o email do usuário
+        print("Insira seu telefone:")
+        self.set_fone(input())   # Seta o telefone do usuário
+        # Adicionando a validação de telefone
+        while True:
+            print("Insira seu telefone (máximo 11 dígitos):")
+            telefone = input()
+            try:
+                self.validar_telefone(telefone)  # Valida o telefone
+                self.set_fone(telefone)
+            except TelefoneInvalidoException as e:
+                print(f"Erro: {e}")
+                continue
+            else:
+                print("Telefone cadastrado com sucesso!")
+                break
+            finally:
+                system("clear")
 
     # Método de login de um usuário usando o ID e a senha
     @classmethod
