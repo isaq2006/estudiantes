@@ -40,12 +40,12 @@ class Usuario(Pessoa):
     # Associação com a classe Mensagem para enviar mensagens
     def enviarMensagem(self):
         # Importação da classe Mensagem para criar uma mensagem
-        from ..mensagens import Mensagem
+        from mensagens import Mensagem
         print("Digite seu texto abaixo")
-        
+        texto = input()
         # Criação de uma instância de Mensagem, associando o remetente (nome do usuário) ao conteúdo
-        mensagem = Mensagem(self.get_nome(), input())
-        from ..notificacao import Notificacao
+        mensagem = Mensagem(self.get_nome(), texto)
+        from notificacao import Notificacao
         # Criação de uma instância de Notificação associando a mensagem e ao conteúdo
         notificar = Notificacao()
         notificar.set_notificacao(mensagem.get_conteudo())
@@ -61,7 +61,7 @@ class Usuario(Pessoa):
         print(mensagem.get_conteudo())  # Exibe o conteúdo da mensagem recebida
 
     # Método para aderir a uma comunidade, com possibilidade de criar ou participar de um clube
-    def aderirComunidade(self, bancoDeDados):
+    def aderirComunidade(self, bancoDeDados, clubesSistema):
         while True:
             print("Você deseja se inscrever ou criar um clube?")
             print("[1] Criar um clube")
@@ -79,10 +79,14 @@ class Usuario(Pessoa):
             # Opção para participar de um clube
             elif opcao == "2":
                 # Associação com a classe Membro para se inscrever em um clube existente
-                from .membro import Membro
-                membro = Membro()
-                membro.set_cadastro(bancoDeDados)  # Cadastro do membro
-                return membro
+                if  not clubesSistema:
+                    print("Não esxistem clubes cadastrados no momento!!!")
+                    print("Por favor, seleciona outra alternativa")
+                else:
+                    from .membro import Membro
+                    membro = Membro()
+                    membro.set_cadastro(bancoDeDados)  # Cadastro do membro
+                    return membro
             
             else:
                 print("Opção inválida. Por favor, escolha uma opção válida.")
@@ -92,9 +96,11 @@ class Usuario(Pessoa):
         if not clubes:
             print("Não esxistem clubes cadastrados no momento!!!")
         else:
+            n = 0
             for clube in clubes:
                 # Exibição dos dados de cada clube
-                print(f"Nome: {clube.get_nome()}")
+                n += 1
+                print(f"{n}° Nome: {clube.get_nome()}")
                 print(f"Descrição: {clube.get_descricao()}")
                 # Associação com a classe Coordenador ao exibir o coordenador de cada clube
                 print(f"Cordenador: {clube.get_cordenador().get_nome()}")
